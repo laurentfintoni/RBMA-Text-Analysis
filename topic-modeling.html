@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 6 Topic Modeling | Red Bull Music Academy Lectures: Text Analysis and Topic Modeling</title>
+  <title>Part 6 Topic Modeling | Red Bull Music Academy Lectures: Text Analysis and Topic Modeling</title>
   <meta name="description" content="Exploring the RBMA lectures archive using text analysis and mining, a project for the Digital Text in the Humanities course at the university of Bologna, 2020/2021." />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 6 Topic Modeling | Red Bull Music Academy Lectures: Text Analysis and Topic Modeling" />
+  <meta property="og:title" content="Part 6 Topic Modeling | Red Bull Music Academy Lectures: Text Analysis and Topic Modeling" />
   <meta property="og:type" content="book" />
   
   <meta property="og:image" content="/images/rbmacover.jpg" />
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 6 Topic Modeling | Red Bull Music Academy Lectures: Text Analysis and Topic Modeling" />
+  <meta name="twitter:title" content="Part 6 Topic Modeling | Red Bull Music Academy Lectures: Text Analysis and Topic Modeling" />
   
   <meta name="twitter:description" content="Exploring the RBMA lectures archive using text analysis and mining, a project for the Digital Text in the Humanities course at the university of Bologna, 2020/2021." />
   <meta name="twitter:image" content="/images/rbmacover.jpg" />
@@ -217,7 +217,7 @@ div.csl-indent {
 
             <section class="normal" id="section-">
 <div id="topic-modeling" class="section level1" number="6">
-<h1><span class="header-section-number">Chapter 6</span> Topic Modeling</h1>
+<h1><span class="header-section-number">Part 6</span> Topic Modeling</h1>
 <p>For the last step of this project I wanted to attempt some basic text mining in the form of topic modeling, to see if the results would align with the analysis and my knowledge of the corpus. As with the rest of the project I decided to undertake this in both R and Python for learning and comparison purposes.</p>
 <p>In R I used the stm <span class="citation">(<a href="#ref-R-stm" role="doc-biblioref">Roberts, Stewart, and Tingley 2020</a>)</span> and topicmodels <span class="citation">(<a href="#ref-R-topicmodels" role="doc-biblioref">Grün and Hornik 2021</a>)</span> packages. In Python I used the MALLET Java package<a href="#fn18" class="footnote-ref" id="fnref18"><sup>18</sup></a> via the Little Mallet Wrapper library<a href="#fn19" class="footnote-ref" id="fnref19"><sup>19</sup></a>, based on Melanie Walsh’s tutorial in <em>Introduction to Cultural Analytics &amp; Python</em><a href="#fn20" class="footnote-ref" id="fnref20"><sup>20</sup></a>). In every case, topic modeling was done using the Latent Dirichlet Analysis (LDA) algorithm.</p>
 <p>I also spent some time looking into the Latent Semantic Analysis (LSA) algorithm, which is possible using stm, but this proved somewhat more complicated than I had time for. With Python, I also did some tests using the gensim library<a href="#fn21" class="footnote-ref" id="fnref21"><sup>21</sup></a> but the tuning required to achieve useful results was more involving than MALLET.</p>

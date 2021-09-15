@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 4 Exploratory Analysis in Python | Red Bull Music Academy Lectures: Text Analysis and Topic Modeling</title>
+  <title>Part 4 Exploratory Analysis in Python | Red Bull Music Academy Lectures: Text Analysis and Topic Modeling</title>
   <meta name="description" content="Exploring the RBMA lectures archive using text analysis and mining, a project for the Digital Text in the Humanities course at the university of Bologna, 2020/2021." />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 4 Exploratory Analysis in Python | Red Bull Music Academy Lectures: Text Analysis and Topic Modeling" />
+  <meta property="og:title" content="Part 4 Exploratory Analysis in Python | Red Bull Music Academy Lectures: Text Analysis and Topic Modeling" />
   <meta property="og:type" content="book" />
   
   <meta property="og:image" content="/images/rbmacover.jpg" />
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 4 Exploratory Analysis in Python | Red Bull Music Academy Lectures: Text Analysis and Topic Modeling" />
+  <meta name="twitter:title" content="Part 4 Exploratory Analysis in Python | Red Bull Music Academy Lectures: Text Analysis and Topic Modeling" />
   
   <meta name="twitter:description" content="Exploring the RBMA lectures archive using text analysis and mining, a project for the Digital Text in the Humanities course at the university of Bologna, 2020/2021." />
   <meta name="twitter:image" content="/images/rbmacover.jpg" />
@@ -217,7 +217,7 @@ div.csl-indent {
 
             <section class="normal" id="section-">
 <div id="exploratory-analysis-in-python" class="section level1" number="4">
-<h1><span class="header-section-number">Chapter 4</span> Exploratory Analysis in Python</h1>
+<h1><span class="header-section-number">Part 4</span> Exploratory Analysis in Python</h1>
 <p>Following the cleaning process I worked on some exploratory analysis, using a mix of quantitative and qualitative approaches, to ensure that the data held up to various basic descriptions so that I could confidently move forward with topic modeling.</p>
 <p>For this I focused on the three corpus versions mentioned previously: the raw corpus, corpus lemmatized with R, and corpus lemmatized with Python. As with the cleaning process, the various analysis presented in this and the next notebook were refined through an iterative process and I’ve tried to keep the R and Python versions different, playing to each program’s strength rather than trying to replicate everything across both as I had done with the corpus cleaning.</p>
 <p>In Python, I transferred the ntlk corpus objects to pandas<a href="#fn10" class="footnote-ref" id="fnref10"><sup>10</sup></a>, creating dataframes for each corpus version that contained various elements I would need for analysis and topic modeling. I then pickled them so they could be easily reused. These dataframes include raw transcript, tokens, POS, lexical diversity scores, and total types and tokens counts.</p>

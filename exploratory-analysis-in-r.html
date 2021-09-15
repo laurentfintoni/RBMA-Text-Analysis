@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 5 Exploratory Analysis in R | Red Bull Music Academy Lectures: Text Analysis and Topic Modeling</title>
+  <title>Part 5 Exploratory Analysis in R | Red Bull Music Academy Lectures: Text Analysis and Topic Modeling</title>
   <meta name="description" content="Exploring the RBMA lectures archive using text analysis and mining, a project for the Digital Text in the Humanities course at the university of Bologna, 2020/2021." />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 5 Exploratory Analysis in R | Red Bull Music Academy Lectures: Text Analysis and Topic Modeling" />
+  <meta property="og:title" content="Part 5 Exploratory Analysis in R | Red Bull Music Academy Lectures: Text Analysis and Topic Modeling" />
   <meta property="og:type" content="book" />
   
   <meta property="og:image" content="/images/rbmacover.jpg" />
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 5 Exploratory Analysis in R | Red Bull Music Academy Lectures: Text Analysis and Topic Modeling" />
+  <meta name="twitter:title" content="Part 5 Exploratory Analysis in R | Red Bull Music Academy Lectures: Text Analysis and Topic Modeling" />
   
   <meta name="twitter:description" content="Exploring the RBMA lectures archive using text analysis and mining, a project for the Digital Text in the Humanities course at the university of Bologna, 2020/2021." />
   <meta name="twitter:image" content="/images/rbmacover.jpg" />
@@ -217,7 +217,7 @@ div.csl-indent {
 
             <section class="normal" id="section-">
 <div id="exploratory-analysis-in-r" class="section level1" number="5">
-<h1><span class="header-section-number">Chapter 5</span> Exploratory Analysis in R</h1>
+<h1><span class="header-section-number">Part 5</span> Exploratory Analysis in R</h1>
 <p>For the exploratory analysis in R I focused on using the tm and <strong>quanteda</strong> <span class="citation">(<a href="#ref-R-quanteda" role="doc-biblioref">Benoit et al. 2021</a>)</span> packages: the former because of its simple methods for finding co-occurences and frequent terms across documents and the latter for its textstat sub-package and because it will also be the package I use for topic modeling in R.</p>
 <p>With quanteda I created Document Term Matrixes from the corpus versions, which were then used for the majority of operations. This allowed me to look at frequency in a different way than I had done in Python where I was only using the corpus items.</p>
 <div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="exploratory-analysis-in-r.html#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tm)</span>
