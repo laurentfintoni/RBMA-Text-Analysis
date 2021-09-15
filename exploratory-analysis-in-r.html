@@ -159,7 +159,7 @@ div.csl-indent {
 <li><a href="./">RBMA Lectures: Text Analysis and Topic Modeling</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> About</a>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
 <ul>
 <li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#pre-processing-steps"><i class="fa fa-check"></i><b>1.1</b> Pre-Processing Steps</a></li>
 </ul></li>
@@ -187,7 +187,11 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="6" data-path="topic-modeling.html"><a href="topic-modeling.html"><i class="fa fa-check"></i><b>6</b> Topic Modeling</a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="topic-modeling.html"><a href="topic-modeling.html#topic-modeling-in-r"><i class="fa fa-check"></i><b>6.1</b> Topic Modeling in R</a></li>
+<li class="chapter" data-level="6.1" data-path="topic-modeling.html"><a href="topic-modeling.html#topic-modeling-in-r"><i class="fa fa-check"></i><b>6.1</b> Topic Modeling in R</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="topic-modeling.html"><a href="topic-modeling.html#topic-modeling-with-topicmodels"><i class="fa fa-check"></i><b>6.1.1</b> Topic Modeling with topicmodels</a></li>
+<li class="chapter" data-level="6.1.2" data-path="topic-modeling.html"><a href="topic-modeling.html#topic-modeling-with-stm"><i class="fa fa-check"></i><b>6.1.2</b> Topic Modeling with stm</a></li>
+</ul></li>
 <li class="chapter" data-level="6.2" data-path="topic-modeling.html"><a href="topic-modeling.html#topic-modeling-in-python"><i class="fa fa-check"></i><b>6.2</b> Topic Modeling in Python</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>7</b> Conclusion</a></li>
@@ -311,7 +315,7 @@ div.csl-indent {
 <p>Both “think” and “people” returned some obvious results such as “people make/think” though the more interesting associations were with verbs such as “feel,” “want,” “try,” “see,” and “talk” which are all relevant to the creative process.</p>
 <p>The results for “know,” “listen” and “time” were the least revealing and I’d argue these terms have more potential in the results for our other terms, such as “listen (to a) record/music.”</p>
 <p>Lastly, “song” and “track” have a degree of interchangeability in everyday usage within music discourse and some of this is reflected in the results. “Take,” “put,” “hear,” “make,” “good,” “big,” “studio,” and “producer” appear as co-occurences for both terms. The differences between co-occurences for the two terms are equally interesting with “mix,” “dance,” and “vocal” appearing only with “track” while “beat,” “crazy,” and “love” appear only with “song.” In both cases some of these can feel a little counter-intuitive: one might expect “beat” to be more easily associated with “track” or “vocal” with “song.”</p>
-<p>Seeing as these two terms appeared to have the most interplay, I decided to visualize their shared correlations in the cleaned versions via a plot, which shows “good”, “big”, and “start” as the co-occurences with the closest correlation threshold between both terms.<a href="#fn13" class="footnote-ref" id="fnref13"><sup>13</sup></a></p>
+<p>Seeing as these two terms appeared to have the most interplay, I decided to visualize their shared correlations in the cleaned versions via a plot, which shows “good”, “big”, and “start” as the co-occurences with the closest correlation threshold between both terms.<a href="#fn17" class="footnote-ref" id="fnref17"><sup>17</sup></a></p>
 <div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="exploratory-analysis-in-r.html#cb66-1" aria-hidden="true" tabindex="-1"></a>corr1<span class="ot">&lt;-</span> <span class="fu">findAssocs</span>(r_dtm, <span class="st">&quot;song&quot;</span>, <span class="fl">0.3</span>)[[<span class="dv">1</span>]]; corr2<span class="ot">&lt;-</span> <span class="fu">findAssocs</span>(r_dtm, <span class="st">&quot;track&quot;</span>, <span class="fl">0.2</span>)[[<span class="dv">1</span>]]</span>
 <span id="cb66-2"><a href="exploratory-analysis-in-r.html#cb66-2" aria-hidden="true" tabindex="-1"></a>corr1<span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="fu">read.table</span>(<span class="at">text =</span> <span class="fu">names</span>(corr1), <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>), corr1); corr2 <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="fu">read.table</span>(<span class="at">text =</span> <span class="fu">names</span>(corr2), <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>), corr2)</span>
 <span id="cb66-3"><a href="exploratory-analysis-in-r.html#cb66-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
@@ -434,7 +438,7 @@ div.csl-indent {
 ## laughter 0.2784546
 ## london   0.2778346
 ## video    0.2733863</code></pre>
-<p>As expected we can now see a different set of terms, with some of the sub-themes I’d hoped to see: “hip-hop,” “jazz,” and “electronic” are potentially important genres, which I know to be the case based on my knowledge of the corpus and something that could be worth investigating further by adding metadata information to the documents about the primary genres each lecture features; “remix” and “master” are two creative practices that show up likely due to the fact there is at least one lecture with a mastering engineer every year and because both remixes and mastering are part and parcel of how many DJs and producers work; “song,” and its alternative “tune” (in Python), is the only term to still appear from the ten I’d selected as central to the themes based on the most common words; “shit” appears to be the preferred swear word; and “London” might be an important city to our corpus.</p>
+<p>As expected we can now see a different set of terms, with some of the sub-themes I’d hoped to see: “hip-hop,” “jazz,” and “electronic” are potentially important genres, which I know to be the case based on my knowledge of the corpus and something that could be worth investigating further by adding metadata information to the documents about the primary genres each lecture features; “remix” and “master” are two creative practices that show up likely due to the fact there is at least one lecture with a mastering engineer every year and because both remixes and mastering are part and parcel of how many DJs and producers work; “song,” and its alternative “tune” (in the Python version), is the only term to still appear from the ten I’d selected as central to the themes based on the most common words; “shit” appears to be the preferred swear word; and “London” might be an important city to our corpus.</p>
 <p>Next I looked at the most frequent terms for each document again, comparing tf and tf-idf. The tf version of the raw corpus tells us nothing meaningful, as expected, however the tf-idf version helps cut through some of the noise to bring themes for each document to the fore. Overall the results for the raw version remain noisy.</p>
 <div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="exploratory-analysis-in-r.html#cb83-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">=</span> <span class="dv">5</span></span>
 <span id="cb83-2"><a href="exploratory-analysis-in-r.html#cb83-2" aria-hidden="true" tabindex="-1"></a>raw_most_freq_idf<span class="ot">&lt;-</span> <span class="fu">findMostFreqTerms</span>(raw_dtm_idf, <span class="at">n =</span> n)</span>
@@ -568,8 +572,8 @@ Wickham, Hadley, Romain François, Lionel Henry, and Kirill Müller. 2021. <em>D
 </div>
 <div class="footnotes">
 <hr />
-<ol start="13">
-<li id="fn13"><p>Code for the plot function is adapted from the following thread: <a href="https://stackoverflow.com/questions/36326056/r-visualize-correlated-words-against-one-or-more-words" class="uri">https://stackoverflow.com/questions/36326056/r-visualize-correlated-words-against-one-or-more-words</a>)<a href="exploratory-analysis-in-r.html#fnref13" class="footnote-back">↩︎</a></p></li>
+<ol start="17">
+<li id="fn17"><p>Code for the plot function is adapted from the following thread: <a href="https://stackoverflow.com/questions/36326056/r-visualize-correlated-words-against-one-or-more-words" class="uri">https://stackoverflow.com/questions/36326056/r-visualize-correlated-words-against-one-or-more-words</a>)<a href="exploratory-analysis-in-r.html#fnref17" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>

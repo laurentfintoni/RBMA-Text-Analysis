@@ -159,7 +159,7 @@ div.csl-indent {
 <li><a href="./">RBMA Lectures: Text Analysis and Topic Modeling</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> About</a>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
 <ul>
 <li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#pre-processing-steps"><i class="fa fa-check"></i><b>1.1</b> Pre-Processing Steps</a></li>
 </ul></li>
@@ -187,7 +187,11 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="6" data-path="topic-modeling.html"><a href="topic-modeling.html"><i class="fa fa-check"></i><b>6</b> Topic Modeling</a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="topic-modeling.html"><a href="topic-modeling.html#topic-modeling-in-r"><i class="fa fa-check"></i><b>6.1</b> Topic Modeling in R</a></li>
+<li class="chapter" data-level="6.1" data-path="topic-modeling.html"><a href="topic-modeling.html#topic-modeling-in-r"><i class="fa fa-check"></i><b>6.1</b> Topic Modeling in R</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="topic-modeling.html"><a href="topic-modeling.html#topic-modeling-with-topicmodels"><i class="fa fa-check"></i><b>6.1.1</b> Topic Modeling with topicmodels</a></li>
+<li class="chapter" data-level="6.1.2" data-path="topic-modeling.html"><a href="topic-modeling.html#topic-modeling-with-stm"><i class="fa fa-check"></i><b>6.1.2</b> Topic Modeling with stm</a></li>
+</ul></li>
 <li class="chapter" data-level="6.2" data-path="topic-modeling.html"><a href="topic-modeling.html#topic-modeling-in-python"><i class="fa fa-check"></i><b>6.2</b> Topic Modeling in Python</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>7</b> Conclusion</a></li>
@@ -217,26 +221,28 @@ div.csl-indent {
 <p class="author"><em>Laurent Fintoni</em></p>
 <p class="date"><em>2021-09-15</em></p>
 </div>
-<div id="about" class="section level1" number="1">
-<h1><span class="header-section-number">Chapter 1</span> About</h1>
-<p><img src="images/rbmacover.jpg" width="100%" /></p>
-<p>This project uses tools and techniques introduced in the Digital Text in the Humanities course to undertake some basic text analysis and text mining, in the form of topic modeling, on a corpus made up of lectures by modern musicians and music industry professionals.</p>
+<div id="introduction" class="section level1" number="1">
+<h1><span class="header-section-number">Chapter 1</span> Introduction</h1>
+<p><img src="images/rbmacover.jpg" width="100%" />
+<em>Photo by Fabian Brennecke</em></p>
+<p>This project uses tools and techniques introduced in the Digital Text in the Humanities course<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> to undertake basic text analysis and text mining, in the form of topic modeling, on a corpus made up of lectures by modern musicians and music industry professionals.</p>
 <p>In essence the project seeks to ensure a simple question: <strong>what can be learnt from a corpus of interviews about modern music history using text analysis and mining?</strong></p>
-<p>The reasons for choosing this particular focus for the project are simple: I’ve worked as a music journalist for the past 20 years, with a focus on modern music and in particular hip-hop and electronic music; and between 2016 and 2019 I worked as a project manager (and then moving images manager) on creating a complete text and video archive of all publicly available lectures presented as part of the Academy, an itinerant educational and promotional project funded by the drinks company which was active from 1998 to 2019. Since the closure of the Academy in 2019, I’ve become particularly interested in archiving and how new and existing theories and practices might intersect with my own interests in modern music history which ultimately led me to Digital Humanities.</p>
-<p>As such I wanted to choose a data set for this project which I was already familiar with so that I could use my domain expertise to better analyse and evaluate the analysis and mining. As part of my work on the RBMA archive I’ve read and watched pretty much every lecture, and I’ve also worked with some of my colleagues at the Academy on various ways to integrate them into other content we were creating as well as thinking about different ways in which this knowledge could be viewed and used. Thanks to my studies in Digital Humanities I now have a better understanding of how, in the particular case of this project, techniques such as text analysis and mining can be used to achieve just that.</p>
+<p>The reasons for choosing this particular focus are simple: I’ve worked as a music journalist for the past 20 years, with a focus on modern music and in particular hip-hop and electronic music; and between 2016 and 2019 I worked as a project manager (and then moving images manager) on creating a complete text and video archive of all publicly available lectures presented as part of the Academy, an itinerant educational and promotional project funded by the drinks company which was active from 1998 to 2019. Since the closure of the Academy in 2019, I’ve become particularly interested in archiving and how new and existing theories and practices might intersect with my own interests in modern music history, which ultimately led me to the Digital Humanities and Digital Knowledge masters degree at the University of Bologna.</p>
+<p>As such I wanted to choose a data set for this project which I was already familiar with so that I could use my domain expertise to better evaluate the analysis and mining. As part of my work on the RBMA archive I’ve read and watched pretty much every lecture, and I’ve also worked extensively with some of my colleagues on various ways to integrate the knowledge within the lectures into other content we were creating. Throughout all this we also did a lot of thinking about different ways in which this knowledge could be viewed and used. Thanks to my studies I now have a better understanding of how, in the particular case of this project, techniques such as text analysis and mining can be used to achieve just that.</p>
 <p>I’d like to make one last note on the data, as it relates to its sourcing and origins and in the spirit of the “show your work” principle as detailed by Catherine D’Ignazio and Lauren Klein in <em>Data Feminism</em> <span class="citation">(<a href="#ref-20207" role="doc-biblioref"><span>“7. Show Your Work”</span> 2020</a>)</span>. As D’Ignazio and Klein explain:</p>
 <blockquote>
 <p>“Data work is part of a larger ecology of knowledge, one that must be both sustainable and socially just. […] the network of people who contribute to data projects is vast and complex. Showing this work is an essential component of data feminism […]. An emphasis on labor opens the door to the interdisciplinary area of data production studies: taking a data visualization, model, or product and tracing it back to its material conditions and contexts, as well as to the quality and character of the work and the people required to make it. This kind of careful excavation can be undertaken in academic, journalistic, or general contexts, in all cases helping to make more clearly visible—and therefore to value—the work that data science rests upon.”</p>
 </blockquote>
-<p>Firstly the source files for this project are taken from GitHub user ewenme<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> who in 2019, the month after the Academy was closed, created a project that used the lecture transcripts to generate new lectures. That project is sadly no longer online but his repository with the raw data is<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> and that is what I used as the source for my project as it was easier than going through my own archive and reformatting the versions I had. I had helped create the data ewenme used, and in turn used his processing of this data.</p>
-<p>Secondly, the full archive of lectures which is at the heart of this project would not have been possible without the work of many other people including a team of freelance journalists who edited the transcripts, anonymous transcribers from the Rev transcription service, various event and video teams who organized and produced the lectures most of whom either worked for Yadastar*, Red Bull, or various other local contractors.</p>
+<p>Firstly the source files for this project are taken from GitHub user ewenme<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> who in 2019, the month after the Academy was closed, created a project that used the lecture transcripts to generate new lectures. That project is sadly no longer online but his repository with the raw data is<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a> and that is what I used as the source for my project as it was easier than going through my own archive and reformatting my versions. I had helped create the data ewenme used, and in turn used his processing of this data.</p>
+<p>Secondly, the full archive of lectures which is at the heart of this project would not have been possible without the work of many other people: the staff, artists, and hosts who spent time on the couch, and away from it, preparing informative conversations; various staff and freelance journalists who edited the transcripts; anonymous transcribers contracted via services such as Rev; various event and video teams who organized and produced the lectures, most of whom either worked for Yadastar*, Red Bull, or other local contractors.</p>
 <p>This isn’t by any means a large data project but it remains nonetheless possible only because of all the work that came before it in creating one of the most unique music history archives currently in circulation.</p>
 <div id="pre-processing-steps" class="section level2" number="1.1">
 <h2><span class="header-section-number">1.1</span> Pre-Processing Steps</h2>
-<p>As part of the Digital Text in the Humanities course we were introduced to various text analysis tools. This project focuses on the parallel use of two main software packages to do the analysis and mining, R and Python, largely because both have been introduced across various courses in the first year of our Digital Humanities and Digital Knowledge degree and because they are among the better known, and most common, for such uses.</p>
-<p>However I also did some preliminary, let’s call it pre-processing, work using other tools such as Voyant<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a> and Distant Reader<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a>.</p>
+<p>As part of the Digital Text in the Humanities course we were introduced to various text analysis tools. This project focuses on the parallel use of two main software packages to do the analysis and mining, R and Python, largely because both have been introduced across various courses in the first year of the Digital Humanities and Digital Knowledge degree and because they are among the better known, and most common, for such uses.</p>
+<p>However I also did some preliminary, let’s call it pre-processing, work using other tools such as Voyant<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a> and Distant Reader<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a>.</p>
 <p>Voyant is a great and easy to use tool, and many of what I’ve done in this project can be done much more easily with it, however it is more limited in how you can control the various processing functions and their outputs. I ultimately felt that I stood to learn more in the long run by doing a lot of this myself, though I did go back to Voyant a few times throughout to check I was obtaining similar results.</p>
-<p>Distant Reader is an open source software tool developed by Eric Lease Morgan at the University of Notre Dame. I was introduced to it around the same time I began this project and was curious about how it might combine with what we had learnt about both text analysis and distant reading in our course. Much like Voyant, Distant Reader combines many of the best known and most used text analysis techniques and tools into one easy to use package. As with Voyant, you simply feed it data and it then allows you to browse the results in a variety of formats, as well as export them. I used some of these exports as preliminary analysis of the corpus and used some of the insights to inform the cleaning processes described in the following chapters.</p>
+<p>Distant Reader is an open source software tool developed by Eric Lease Morgan at the University of Notre Dame. I was introduced to it around the same time I began this project and was curious about how it might combine with what we had learnt about both text analysis and distant reading in our course. Much like Voyant, Distant Reader combines many of the best known and most used text analysis techniques and tools into one easy to use package. As with Voyant, you simply feed it data and it then allows you to browse the results in a variety of formats, as well as export them. I used some of these exports as preliminary analysis of the corpus and used some of the insights gleaned from it to inform the cleaning processes described in the following chapters.</p>
+<p>As a last note, most of the raw data files referenced in the following notebooks are available in the project’s GitHub repo<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a>.</p>
 
 </div>
 </div>
@@ -249,10 +255,12 @@ div.csl-indent {
 <div class="footnotes">
 <hr />
 <ol start="1">
-<li id="fn1"><p><a href="https://github.com/ewenme" class="uri">https://github.com/ewenme</a><a href="index.html#fnref1" class="footnote-back">↩︎</a></p></li>
-<li id="fn2"><p><a href="https://github.com/ewenme/rbma-lectures" class="uri">https://github.com/ewenme/rbma-lectures</a><a href="index.html#fnref2" class="footnote-back">↩︎</a></p></li>
-<li id="fn3"><p><a href="https://voyant-tools.org/" class="uri">https://voyant-tools.org/</a><a href="index.html#fnref3" class="footnote-back">↩︎</a></p></li>
-<li id="fn4"><p><a href="https://distantreader.org/" class="uri">https://distantreader.org/</a><a href="index.html#fnref4" class="footnote-back">↩︎</a></p></li>
+<li id="fn1"><p><a href="https://www.unibo.it/it/didattica/insegnamenti/insegnamento/2020/424631" class="uri">https://www.unibo.it/it/didattica/insegnamenti/insegnamento/2020/424631</a><a href="index.html#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p><a href="https://github.com/ewenme" class="uri">https://github.com/ewenme</a><a href="index.html#fnref2" class="footnote-back">↩︎</a></p></li>
+<li id="fn3"><p><a href="https://github.com/ewenme/rbma-lectures" class="uri">https://github.com/ewenme/rbma-lectures</a><a href="index.html#fnref3" class="footnote-back">↩︎</a></p></li>
+<li id="fn4"><p><a href="https://voyant-tools.org/" class="uri">https://voyant-tools.org/</a><a href="index.html#fnref4" class="footnote-back">↩︎</a></p></li>
+<li id="fn5"><p><a href="https://distantreader.org/" class="uri">https://distantreader.org/</a><a href="index.html#fnref5" class="footnote-back">↩︎</a></p></li>
+<li id="fn6"><p><a href="https://github.com/laurentfintoni/rbma-text-analysis-mining" class="uri">https://github.com/laurentfintoni/rbma-text-analysis-mining</a><a href="index.html#fnref6" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>

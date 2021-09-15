@@ -1,4 +1,4 @@
-about
+introduction
 pre-processing-steps
 corpus-cleaning-in-r
 basic-cleaning
@@ -16,5 +16,7 @@ term-frequency-vs-inverse-document-frequency
 collocations
 topic-modeling
 topic-modeling-in-r
+topic-modeling-with-topicmodels
+topic-modeling-with-stm
 topic-modeling-in-python
 conclusion

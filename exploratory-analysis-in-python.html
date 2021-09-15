@@ -159,7 +159,7 @@ div.csl-indent {
 <li><a href="./">RBMA Lectures: Text Analysis and Topic Modeling</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> About</a>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
 <ul>
 <li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#pre-processing-steps"><i class="fa fa-check"></i><b>1.1</b> Pre-Processing Steps</a></li>
 </ul></li>
@@ -187,7 +187,11 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="6" data-path="topic-modeling.html"><a href="topic-modeling.html"><i class="fa fa-check"></i><b>6</b> Topic Modeling</a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="topic-modeling.html"><a href="topic-modeling.html#topic-modeling-in-r"><i class="fa fa-check"></i><b>6.1</b> Topic Modeling in R</a></li>
+<li class="chapter" data-level="6.1" data-path="topic-modeling.html"><a href="topic-modeling.html#topic-modeling-in-r"><i class="fa fa-check"></i><b>6.1</b> Topic Modeling in R</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="topic-modeling.html"><a href="topic-modeling.html#topic-modeling-with-topicmodels"><i class="fa fa-check"></i><b>6.1.1</b> Topic Modeling with topicmodels</a></li>
+<li class="chapter" data-level="6.1.2" data-path="topic-modeling.html"><a href="topic-modeling.html#topic-modeling-with-stm"><i class="fa fa-check"></i><b>6.1.2</b> Topic Modeling with stm</a></li>
+</ul></li>
 <li class="chapter" data-level="6.2" data-path="topic-modeling.html"><a href="topic-modeling.html#topic-modeling-in-python"><i class="fa fa-check"></i><b>6.2</b> Topic Modeling in Python</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>7</b> Conclusion</a></li>
@@ -216,8 +220,7 @@ div.csl-indent {
 <h1><span class="header-section-number">Chapter 4</span> Exploratory Analysis in Python</h1>
 <p>Following the cleaning process I worked on some exploratory analysis, using a mix of quantitative and qualitative approaches, to ensure that the data held up to various basic descriptions so that I could confidently move forward with topic modeling.</p>
 <p>For this I focused on the three corpus versions mentioned previously: the raw corpus, corpus lemmatized with R, and corpus lemmatized with Python. As with the cleaning process, the various analysis presented in this and the next notebook were refined through an iterative process and I’ve tried to keep the R and Python versions different, playing to each program’s strength rather than trying to replicate everything across both as I had done with the corpus cleaning.</p>
-<p>In Python, I transferred the ntlk corpus objects to pandas<a href="#fn8" class="footnote-ref" id="fnref8"><sup>8</sup></a>, creating dataframes for each corpus version that contained various elements I would need for analysis and topic modeling. I then pickled them so they could be easily reused. These dataframes include raw transcript, tokens, POS, lexical diversity scores, and total types and tokens counts.</p>
-<p>As with the previous notebook, I use plain code and image versions of Python outputs and only include code chunks where necessary.</p>
+<p>In Python, I transferred the ntlk corpus objects to pandas<a href="#fn10" class="footnote-ref" id="fnref10"><sup>10</sup></a>, creating dataframes for each corpus version that contained various elements I would need for analysis and topic modeling. I then pickled them so they could be easily reused. These dataframes include raw transcript, tokens, POS, lexical diversity scores, and total types and tokens counts.</p>
 <div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="exploratory-analysis-in-python.html#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(reticulate)</span></code></pre></div>
 <div class="sourceCode" id="cb42"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb42-1"><a href="exploratory-analysis-in-python.html#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co">#import libraries </span></span>
 <span id="cb42-2"><a href="exploratory-analysis-in-python.html#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span></code></pre></div>
@@ -267,7 +270,7 @@ def corpus_to_df(input_corpus, title):
 <hr />
 <div id="pos-visualisation" class="section level2" number="4.1">
 <h2><span class="header-section-number">4.1</span> POS Visualisation</h2>
-<p>I used the PosTagVisualizer from the Yellowbrick library to create bar charts that show the proportions of different parts of speech in a corpus.</p>
+<p>I used the PosTagVisualizer from the Yellowbrick library<a href="#fn11" class="footnote-ref" id="fnref11"><sup>11</sup></a> to create bar charts that show the proportions of different parts of speech in a corpus.</p>
 <p>This visualisation is most meaningful in showing how the cleaning process impacted the corpus: the Python version has more verbs and modals, likely because the R version went through additional steps that removed modals that appeared in the top words, and both clean versions are composed primarily of nouns, verbs, adjectives, and adverbs. Oddly the adjective count increased slightly between each version (from 384378 in the raw corpus to 419007 and 433524 in the cleaned versions), which I assume might be due to some sort of misinterpretation in the POS tagging process.</p>
 <pre><code>raw_list = [rbma_raw_df[&#39;POS&#39;].tolist()]
 r_list = [rbma_R_df[&#39;POS&#39;].tolist()]
@@ -283,9 +286,9 @@ display_html(fig)</code></pre>
 </div>
 <div id="lexical-diversity" class="section level2" number="4.2">
 <h2><span class="header-section-number">4.2</span> Lexical diversity</h2>
-<p>Next I looked at the lexical diversity of corpus items, which is the measure of how many different words appear in a text. The corpus is best summarized as being made up of conversations about music history and practices, which can include some complex and abstract ideas (such as inspiration or technical practices). There is a small proportion of lectures by non-native English speakers, some of which are conducted in English and others in their native language via translators (I’d say between 10 and 15% at a quick glance). And the majority of conversations are around 60 to 90 minutes long (which affects the length of the transcript). Considering all this, I thought it might be interesting to see if some basic lexical diversity analysis confirmed some of these aspects of the corpus and if it hinted at anything else.</p>
+<p>Next I looked at the lexical diversity of corpus items, which is the measure of how many different words appear in a text. The corpus is best summarized as being made up of conversations about music history and practices, which can include some complex and abstract ideas (such as inspiration or technical practices). There is a small proportion of lectures by non-native English speakers, some of which are conducted in English and others in their native language via translators (I’d say between 10 and 15% at a quick glance). And the majority of conversations are around 60 to 90 minutes long (which affects the length of the transcript). Considering all this, I thought it might be interesting to see if some basic lexical diversity analysis confirmed some of these aspects of the corpus and hinted at anything else.</p>
 <p>I first used the basic Token-Type Ratio approach, which calculates the diversity of a text by dividing total unique words (types) by the total amount of works (tokens). However this approach is highly susceptible to length: the longer the document, the lower the chance that a new token will also be a new type, causing the TTR score to drop. As such, looking at TTR scores for the raw corpus we see the shortest texts with the highest scores and the longest one with the lowest scores. For reference the shortest text in the raw corpus has 2679 tokens, while the longest has 35551 tokens.</p>
-<p>To remedy this I used the lexical-diversity library in Python<a href="#fn9" class="footnote-ref" id="fnref9"><sup>9</sup></a>, which allows for easy implementation of various other lexical diversity calculations including Hypergeometric Distribution D (HDD)<a href="#fn10" class="footnote-ref" id="fnref10"><sup>10</sup></a> and Measure of Lexical Textual Diversity (MTLD)<a href="#fn11" class="footnote-ref" id="fnref11"><sup>11</sup></a>, both of which account for the limitations of TTR in different ways: MTLD computes how many words it takes before the TTR falls below a given threshold while HDD uses probability to evaluate the contribution of each word in the text to overall lexical diversity.</p>
+<p>To remedy this I used the lexical-diversity library in Python<a href="#fn12" class="footnote-ref" id="fnref12"><sup>12</sup></a>, which allows for easy implementation of various other lexical diversity calculations including Hypergeometric Distribution D (HDD)<a href="#fn13" class="footnote-ref" id="fnref13"><sup>13</sup></a> and Measure of Lexical Textual Diversity (MTLD)<a href="#fn14" class="footnote-ref" id="fnref14"><sup>14</sup></a>, both of which account for the limitations of TTR in different ways: MTLD computes how many words it takes before the TTR falls below a given threshold while HDD uses probability to evaluate the contribution of each word in the text to overall lexical diversity.</p>
 <p>I started by looking at the median values for tokens and types and the means for the different lexical diversity calculations across all three version of the corpus.</p>
 <pre><code>#create DFs for all score types and assign variables to them 
 #TTR scores 
@@ -338,7 +341,7 @@ r_ttr.plot.scatter(x=&#39;Total Tokens&#39;, y=&#39;TTR Score&#39;, c=&#39;TTR S
 py_ttr.plot.scatter(x=&#39;Total Tokens&#39;, y=&#39;TTR Score&#39;, c=&#39;TTR Score&#39;, colormap=&#39;viridis&#39;, ax=ax3, title=&#39;RBMA Python&#39;)
 display_html(fig)</code></pre>
 <p><img src="images/TTR_scatters.png" width="100%" /><img src="images/HDD_scatters.png" width="100%" /><img src="images/MTLD_scatters.png" width="100%" /></p>
-<p>These plots show a normal distribution, with the odd outlier at the top and bottom which are also reflected in the top / bottom 10 entries I looked at next. Most importantly the majority of texts in each version of the corpus fall within a range that matches the means and which appears to reflect low to moderate levels of lexical diversity overall. We can also see how the cleaning process affects the plots, with the cleaned versions being more spread out.</p>
+<p>These plots show a normal distribution, with the odd outlier at the top and bottom which are also reflected in the top / bottom 10 entries I looked at next. Most importantly the majority of texts in each version of the corpus fall within a range that matches the means and which I interpret as reflecting low to moderate levels of lexical diversity overall. We can also see how the cleaning process affects the plots, with the cleaned versions being more spread out.</p>
 <p>As a last step I looked at the top 10 and bottom 10 texts for each lexical diversity calculation.</p>
 <pre><code>combined_list_ttr = [raw_ttr, r_ttr, py_ttr]
 combined_list_hdd = [raw_hdd, r_hdd, py_hdd]
@@ -370,12 +373,12 @@ display(HTML(output))</code></pre>
 <li><p>Another interesting observation is the presence of lecturers from the world of hip-hop in the bottom 10 lists for HDD and MTLD scores, including A$AP Rocky, No ID, Mike Will Made-It, Frank Rodriguez, DJ Dahi, Oh No, and Ka. My assumption here is that there might be a difference in the range of vocabulary (unique types) used in these lectures which creates an adverse impact on the score similar to what happens with the lectures conducted in broken English/native languages. Other factors also include length, the Oh No lecture is one of the shortest in the corpus and thus might be more susceptible to the HDD and MTLD methodologies which try to correct for length, and context, the DJ Dahi lecture took place in Seoul and was partly translated into Korean by the host resulting in much shorter answers by the artist. Furthermore I know from experience that the Ka and No ID lectures, for example, are similar in terms of topics and ideas expressed as some of the lectures in the top 10 and so I suspect that the tendency of some of these artists to express themselves with a more limited vocabulary might be a key factor here and certainly something that would be interesting to look into further.</p></li>
 <li><p>The TTR scores confirm the known issue with the calculation. The shortest lectures appear up top (Reinboth, Madlib, Strobocop) while the longest are in the bottom (Bob Power, Marley Marl, Jam &amp; Lewis, Teddy Riley). In the case of Strobocop for example, which is one of the shortest lectures and conducted by a non-native English speaker in English, we see it in the top 10 in all three versions for TTR but in the bottom 10 for the HDD version of the R corpus, highlighting how that particular calculation method compensates for the limitations of TTR.</p></li>
 </ul>
-<p>Overall I would say that it seems to me as if HDD scoring might be most accurate in capturing the various nuances of this particular corpus and that further, more detailed lexical diversity analysis of the corpus could be interesting to see just how artists modulate their speech in public conversations.</p>
+<p>Overall it seems to me as if HDD scoring might be most accurate in capturing the various nuances of this particular corpus and that further, more detailed lexical diversity analysis of the corpus could be interesting to see just how artists modulate their speech in public conversations.</p>
 <hr />
 </div>
 <div id="most-common-words" class="section level2" number="4.3">
 <h2><span class="header-section-number">4.3</span> Most Common Words</h2>
-<p>Lastly I looked at the most common words in the corpus. I used the Frequency Distribution method built into nltk to generate lists alongside Yellowbrick’s FreqDist vizualizer and word clouds for additional visualization options.<a href="#fn12" class="footnote-ref" id="fnref12"><sup>12</sup></a></p>
+<p>Lastly I looked at the most common words in the corpus. I used the Frequency Distribution method built into nltk to generate lists alongside Yellowbrick’s FreqDist vizualizer<a href="#fn15" class="footnote-ref" id="fnref15"><sup>15</sup></a> and word clouds for additional visualization options.<a href="#fn16" class="footnote-ref" id="fnref16"><sup>16</sup></a></p>
 <pre><code>#return top 15 most common words in corpus and their frequency 
 
 def most_common_words(input_corpus):
@@ -435,12 +438,14 @@ display_html(corpus_to_wordcloud(rbma_corpus_list))</code></pre>
 </div>
 <div class="footnotes">
 <hr />
-<ol start="8">
-<li id="fn8"><p><a href="https://pandas.pydata.org/" class="uri">https://pandas.pydata.org/</a><a href="exploratory-analysis-in-python.html#fnref8" class="footnote-back">↩︎</a></p></li>
-<li id="fn9"><p><a href="https://pypi.org/project/lexical-diversity/" class="uri">https://pypi.org/project/lexical-diversity/</a><a href="exploratory-analysis-in-python.html#fnref9" class="footnote-back">↩︎</a></p></li>
-<li id="fn10"><p><a href="https://journals.sagepub.com/doi/10.1177/0265532207080767" class="uri">https://journals.sagepub.com/doi/10.1177/0265532207080767</a><a href="exploratory-analysis-in-python.html#fnref10" class="footnote-back">↩︎</a></p></li>
-<li id="fn11"><p><a href="https://link.springer.com/article/10.3758/BRM.42.2.381" class="uri">https://link.springer.com/article/10.3758/BRM.42.2.381</a><a href="exploratory-analysis-in-python.html#fnref11" class="footnote-back">↩︎</a></p></li>
-<li id="fn12"><p><a href="https://stackoverflow.com/questions/38783027/jupyter-notebook-display-two-pandas-tables-side-by-side">Stack Overflow thread for the side by side function</a><a href="exploratory-analysis-in-python.html#fnref12" class="footnote-back">↩︎</a></p></li>
+<ol start="10">
+<li id="fn10"><p><a href="https://pandas.pydata.org/" class="uri">https://pandas.pydata.org/</a><a href="exploratory-analysis-in-python.html#fnref10" class="footnote-back">↩︎</a></p></li>
+<li id="fn11"><p><a href="https://www.scikit-yb.org/en/latest/api/text/postag.html" class="uri">https://www.scikit-yb.org/en/latest/api/text/postag.html</a><a href="exploratory-analysis-in-python.html#fnref11" class="footnote-back">↩︎</a></p></li>
+<li id="fn12"><p><a href="https://pypi.org/project/lexical-diversity/" class="uri">https://pypi.org/project/lexical-diversity/</a><a href="exploratory-analysis-in-python.html#fnref12" class="footnote-back">↩︎</a></p></li>
+<li id="fn13"><p>McCarthy and Jarvis, 2007, <a href="https://journals.sagepub.com/doi/10.1177/0265532207080767" class="uri">https://journals.sagepub.com/doi/10.1177/0265532207080767</a><a href="exploratory-analysis-in-python.html#fnref13" class="footnote-back">↩︎</a></p></li>
+<li id="fn14"><p>McCarthy and Jarvis, 2010, <a href="https://link.springer.com/article/10.3758/BRM.42.2.381" class="uri">https://link.springer.com/article/10.3758/BRM.42.2.381</a><a href="exploratory-analysis-in-python.html#fnref14" class="footnote-back">↩︎</a></p></li>
+<li id="fn15"><p><a href="https://www.scikit-yb.org/en/latest/api/text/freqdist.html" class="uri">https://www.scikit-yb.org/en/latest/api/text/freqdist.html</a><a href="exploratory-analysis-in-python.html#fnref15" class="footnote-back">↩︎</a></p></li>
+<li id="fn16"><p>This Stack Overflow thread was used to create the side-by-side display function: <a href="https://stackoverflow.com/questions/38783027/jupyter-notebook-display-two-pandas-tables-side-by-side" class="uri">https://stackoverflow.com/questions/38783027/jupyter-notebook-display-two-pandas-tables-side-by-side</a><a href="exploratory-analysis-in-python.html#fnref16" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>

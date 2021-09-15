@@ -159,7 +159,7 @@ div.csl-indent {
 <li><a href="./">RBMA Lectures: Text Analysis and Topic Modeling</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> About</a>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
 <ul>
 <li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#pre-processing-steps"><i class="fa fa-check"></i><b>1.1</b> Pre-Processing Steps</a></li>
 </ul></li>
@@ -187,7 +187,11 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="6" data-path="topic-modeling.html"><a href="topic-modeling.html"><i class="fa fa-check"></i><b>6</b> Topic Modeling</a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="topic-modeling.html"><a href="topic-modeling.html#topic-modeling-in-r"><i class="fa fa-check"></i><b>6.1</b> Topic Modeling in R</a></li>
+<li class="chapter" data-level="6.1" data-path="topic-modeling.html"><a href="topic-modeling.html#topic-modeling-in-r"><i class="fa fa-check"></i><b>6.1</b> Topic Modeling in R</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="topic-modeling.html"><a href="topic-modeling.html#topic-modeling-with-topicmodels"><i class="fa fa-check"></i><b>6.1.1</b> Topic Modeling with topicmodels</a></li>
+<li class="chapter" data-level="6.1.2" data-path="topic-modeling.html"><a href="topic-modeling.html#topic-modeling-with-stm"><i class="fa fa-check"></i><b>6.1.2</b> Topic Modeling with stm</a></li>
+</ul></li>
 <li class="chapter" data-level="6.2" data-path="topic-modeling.html"><a href="topic-modeling.html#topic-modeling-in-python"><i class="fa fa-check"></i><b>6.2</b> Topic Modeling in Python</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>7</b> Conclusion</a></li>
@@ -216,13 +220,14 @@ div.csl-indent {
 <h1><span class="header-section-number">Chapter 3</span> Corpus Cleaning in Python</h1>
 <div id="basic-cleaning-pt-2" class="section level2" number="3.1">
 <h2><span class="header-section-number">3.1</span> Basic cleaning pt 2</h2>
-<p>After cleaning the corpus with R, I attempted to replicate the process in Python both as a learning exercise and to see what might be different. For Python I focused on using the nltk library<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a>, which seems to be equivalent in popularity to R’s tm package.</p>
+<p>After cleaning the corpus with R, I attempted to replicate the process in Python both as a learning exercise and to see what might be different. For Python I focused on using the nltk library<a href="#fn8" class="footnote-ref" id="fnref8"><sup>8</sup></a>, which seems to be equivalent in popularity to R’s tm package.</p>
 <p>Here are the main steps and takeaways from the process:</p>
 <ol style="list-style-type: decimal">
 <li><p>Regular expressions are essential to doing ‘better’ cleaning in Python and after a lot of trial and error attempting to devise various patterns to do what I wanted I got some help from a friend to focus on a simple pattern that could strip each document of the lecturer or host’s name when it appears on its own line rather than throughout the text. I settled on this as a small win and a primary point of difference between the Python and R cleaning processes. In R, I removed lecturer/host names from the entire corpus, even when someone might be mentioned in another lecture, which could be an issue for any meaningful attempts at creating networks between people (the repeated use of names throughout each file is also a huge noise factor for any textual analysis). With this regex pattern I was able to remove the instances of names that are pure noise.</p></li>
 <li><p>Another major difference between Python and R that emerged through this comparison was in the ease of processing stopwords. R allows for the inclusion of n-grams in a stopword list, whereas in Python this needs to be done with additional code. I tried a few regex solutions but was unable to get something working to capture anything more than unigrams. This ended up being another difference between the two versions. In Python I broke down all the stopwords into unigrams. The primary issue with this is that one of the custom stopwords is “Red Bull Music Academy,” which ended up removing the word “music” from the Python version of the corpus, which as we’ll see is one of the most prominent words in the corpus.</p></li>
 </ol>
-<p>Below are cells showing the code I used for the cleaning and some relevant outputs. To avoid running unnecessary code during the output of the notebook Python functions are shown as plain code with code chunks when necessary.</p>
+<p>Below are cells showing the code I used for the cleaning and some relevant outputs.</p>
+<p>Note that to avoid running unnecessary code during the output of the notebooks, Python functions are shown as plain code with their outputs as images, code chunks are only used and output when they required minimal processing.</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="corpus-cleaning-in-python.html#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(reticulate)</span></code></pre></div>
 <div class="sourceCode" id="cb15"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="corpus-cleaning-in-python.html#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">#import needed libraries</span></span>
 <span id="cb15-2"><a href="corpus-cleaning-in-python.html#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -285,7 +290,7 @@ def export_corpus(input_corpus):
 <pre><code>## Clean version:
 ##  lecturers today songwriting producing team minneapolis minnesota may heard happen two best ever done please welcome jimmy jam terry lewis thank thank us yes talk talk would love us listen first reset</code></pre>
 <p>The resulting corpus was labelled as RBMA CLEAN PY V1.</p>
-<p>I then ran the same function again but changed to not remove custom stopwords and to only remove lecturer and host names on new lines as I felt this might give me an interesting corpus version that still included the key word “music” and didn’t have host and lecturer names as noise but only where they are relevant.</p>
+<p>I then ran the same function again but this time I did not remove custom stopwords and only removed lecturer and host names when they appeared on new lines, as I felt this might give me an interesting corpus version that still included the key word “music” and didn’t have host and lecturer names as noise but only where they are relevant.</p>
 <pre><code>#clean each doc in corpus but no custom stopwords and lecturer and host names only on new lines 
 def filter_names(input_string):
     stopwords = nltk.corpus.stopwords.words(&#39;english&#39;) #nltk stopwords 
@@ -327,7 +332,7 @@ def export_corpus_names(input_corpus):
 </div>
 <div id="lemmatizing-vs-stemming-pt-2" class="section level2" number="3.2">
 <h2><span class="header-section-number">3.2</span> Lemmatizing vs Stemming pt 2</h2>
-<p>For the lemmatizing process in Python I opted to use the WordNetLemmatizer module which is bundled with nltk. The first few tries yielded no changes as I was calling the lemmatizer method directly on the raw strings. I eventually realised I needed to tokenize the raw strings first and then call the method on the tokens before detokenizing the result using nltk’s TreebankWordDetokenizer. The code for this is shown below. <a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a></p>
+<p>For the lemmatizing process in Python I opted to use the WordNetLemmatizer module which is bundled with nltk. The first few tries yielded no changes as I was calling the lemmatizer method directly on the raw strings. I eventually realised I needed to tokenize the raw strings first and then call the method on the tokens before detokenizing the result using nltk’s TreebankWordDetokenizer. The code for this is shown below. <a href="#fn9" class="footnote-ref" id="fnref9"><sup>9</sup></a></p>
 <pre><code>lemmatizer = WordNetLemmatizer()
 #lemmatize and export cleaned corpus
 def lemma_corpus(input_corpus):
@@ -389,7 +394,7 @@ def lemma_pos_corpus(input_corpus):
 <li>Python clean v2 (no custom stopwords + lecturer and host names removed only from new lines)</li>
 <li>Python clean and lemmatized v1 and v2 (using WordNetLemmatizer and POS)</li>
 </ul>
-<p>Next I ran a quick check on total word counts for each version of the corpus. Below is the code and the resulting dataframe, which I’d pickled in advance.</p>
+<p>Lastly, I ran a quick check on total word counts for each version of the corpus to make sure everything looked ok. Below is the code and the resulting dataframe, which I’d pickled in advance.</p>
 <pre><code>#Set corpora roots 
 
 rbma_corpus = PlaintextCorpusReader(&#39;/Users/laurentfintoni/Desktop/University/COURSE DOCS/YEAR 1/Q3/DIGITAL TEXT/PROJECT/rbma-lectures-master/data_no_empty_files_new_file_names_no_intro&#39;, &#39;.*\.txt&#39;)
@@ -428,20 +433,22 @@ corpus_lengths(rbma_corpus_list)</code></pre>
 ## RBMA PY V2       2248159
 ## RBMA PY V1 LEMM  1952837
 ## RBMA PY V2 LEMM  2248066</code></pre>
-<p>By counting all the words in the nltk corpus object we see a slight increase in total words between the R clean and lemmatized versions, however the Document Term Matrix from <a href="corpus-cleaning-in-r.html#lemmatizing-vs-stemming">2.2</a> confirm that there has been a reduction in unique words. I’m not sure why this increase in word count happened but assume it might be a by-product of the lemmatizing process creating additional tokens. Aside from this everything looks correct: R V2 has less words due to having removed all host and lecturer names; Python V2 has more words due to not having removed custom stopwords; and the lemmatized versions of the Python corpora have a slightly lesser word count but a more meaningful drop in unique terms if we inspect their DTM.</p>
-<p>I then proceeded forward with three versions of the corpus:
-1. The raw version, as a benchmark
-2. R V2 LEMM, as a version with the highest amount of custom stopwords and names removed
-3. PY V2 LEMM, as a version with the lowest amount of custom stopwords and names removed</p>
-<p>Overall, the experience of iteratively cleaning the corpus across both R and Python in a variety of ways really underlined how cleaning is a process that can quickly grow out of hand and needs to be reigned in at some point as chasing the idea of a perfectly clean corpus can feel like an endless pursuit.</p>
+<p>By counting all the words in the nltk corpus objects we see a slight increase in total words between the R clean and lemmatized versions, however the Document Term Matrix from <a href="corpus-cleaning-in-r.html#lemmatizing-vs-stemming">2.2</a> confirm that there has been a reduction in unique words. I’m not sure why this increase in total word count happened but assume it might be a by-product of the lemmatizing process creating additional tokens. Aside from this everything looks correct: R V2 has less words due to having removed all host and lecturer names; Python V2 has more words due to not having removed custom stopwords; and the lemmatized versions of the Python corpora have a slightly lesser total word count but a more meaningful drop in unique terms if we inspect their DTM.</p>
+<p>I then proceeded forward with three versions of the corpus:</p>
+<ol style="list-style-type: decimal">
+<li>The raw version, as a benchmark</li>
+<li>R V2 LEMM, as a version with the highest amount of custom stopwords and names removed</li>
+<li>PY V2 LEMM, as a version with the lowest amount of custom stopwords and names removed</li>
+</ol>
+<p>Overall, the experience of iteratively cleaning the corpus across both R and Python in a variety of ways really underlined how this is a process that can quickly grow out of hand and needs to be reigned in at some point, as chasing the idea of a perfectly clean corpus can feel like an endless pursuit.</p>
 
 </div>
 </div>
 <div class="footnotes">
 <hr />
-<ol start="6">
-<li id="fn6"><p><a href="https://www.nltk.org/book/">NLTK Book</a><a href="corpus-cleaning-in-python.html#fnref6" class="footnote-back">↩︎</a></p></li>
-<li id="fn7"><p>The following web pages were used as reference for lemmatizing functions and code: <a href="https://www.machinelearningplus.com/nlp/lemmatization-examples-python/#wordnetlemmatizerwithappropriatepostag">Lemmatization Approaches with Examples in Python</a>, <a href="https://www.datacamp.com/community/tutorials/stemming-lemmatization-python">Stemming and Lemmatization in Python</a><a href="corpus-cleaning-in-python.html#fnref7" class="footnote-back">↩︎</a></p></li>
+<ol start="8">
+<li id="fn8"><p><a href="https://www.nltk.org/book/" class="uri">https://www.nltk.org/book/</a><a href="corpus-cleaning-in-python.html#fnref8" class="footnote-back">↩︎</a></p></li>
+<li id="fn9"><p>The following were used as reference for lemmatizing functions and code: Selva Prabhakaran’s <a href="https://www.machinelearningplus.com/nlp/lemmatization-examples-python/#wordnetlemmatizerwithappropriatepostag">Lemmatization Approaches with Examples in Python</a> and Hafsa Jabeen’s <a href="https://www.datacamp.com/community/tutorials/stemming-lemmatization-python">Stemming and Lemmatization in Python</a><a href="corpus-cleaning-in-python.html#fnref9" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>
