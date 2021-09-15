@@ -1,0 +1,300 @@
+
+today gonna present granular convolver already state device make especially participant now take place berlin actually 2 time max collaborate first last yearshow la call car composition audiovisual artist ryoji ikeda make sine wave generator different frequency play back car stupidly big soundsystems make big drone piece speaker hold sine wave generator
+conveniently timer keep track lecture wanna talk actually guy meet work
+
+max since eight year roughly
+
+eight year nine year maybe
+
+meet university undergrads electrical engineer start study back together keep work several project
+
+research together go together degree go stanford ccrma research together collaborate different project synthesis dsp
+
+particular
+
+particular particular public yet work
+
+oh okay sorry
+
+also make sound
+
+bring chris cause work together time last year team make convolver
+
+also leave mari matsutoya multidisciplinary artist work field technology embodiment gender actually do collaboration laurel halo use hatsune miku vocaloid another take apart electronic device stage put back together granular convolver rendition performance will take place background give lecture screen next speaker show top view performance throughout
+have explain actually call granular convolver combination granular synthesis mathematical process call convolution come firstly want excuse build think build especially make academy participant
+
+dub siren
+
+dub siren thank god make dub siren synthesizer certain sound make impose certain sound certain tone everybody work challenge make instrument doesn voice instead give voice obvious work sample obviously million sampler hardware software
+next idea use sample granular synthesis sound granular synthesis stick max mention complete different project use convolution convolution broad term way combine two sound together people usually associate convolution reverb process actually way combine two sound together match spectrum pick bit common sound
+way marry two sound together come new sound sound two original sound actually different think maybe sample granular synthesis zoom sample pick bit sound interest convolve another sound come real time anything work people arensynth geeks work people instrumentalist vocalist drummer everyone able use
+look speaker hold granular convolver record slot choose slot good illustrate actually record sample speaker connect granular convolver microphone gonna record cymbal now speaker hit cymbal play back okay granular bite slice small fragment sample two control grain size size fragment position sample pick fragment preview grain granular convolver make short stutter sound change position within sample pick specific part sample attack portion bite move decay hear high frequency dying away speaker scrub granular convolver record sound still listen grain right now idea convolve else example will connect contact mic start convolve speaker attach contact mic granular convolver begin tap finger right now convolve pickup pick hit excite sample tap nail high tap finger much maybe tap gently mic quiet
+different expression different version cymbal sound accord input put inside show sound demo late conjunction bite detail explanation convolution actually send academy participant academy go around see studio happen build participant come different country idea send come berlin collect sound home different level communication language collaborate work new sound together
+send pickup courtesy korg mics courtesy audiotechnica come finish first sound pretty crazy important handheld device think first time take form hardware device battery power go around pick sound although usb circuit power load sample unit whole point physical presence sound capture
+also regard control see screen mari take apart control custom make project make berlin actually amazingly see screen laserengraved back name participant time instrument letter participant say hey check
+also form take big knob way think make instrument actually need unfold experience say need speak big big resolution detail navigate sample grain size slider maybe wanna fast cut long grain ambient sound short grain sound filter
+take account design also want strip bare minimum idea add filter output compression output make easy use time think hell participant will come will use way letkeep open letkeep simple two control open people
+
+add werensure people come term sound right people use technique clue
+
+exactly mean may think right will complete wrong direction people may wanna cut grain convolve also actual industrial design reflect surface treatment make sheet stainless steel laser cut speaker hold cut piece sheet metal fold box surface finish way buy material matte gray metal feel knob machine machine mark pure raw feel
+important convey message speak user talk inside max talk nut bolt gut
+
+think far enough see inside gut convolver imagine convolver shrinked full computer midi controller front computer take speaker reference happen screen green little chip middle cable board speaker move screen board actually full computer computer ghz raspberry pi run audio algorithm board design contain soundcard differential mic input board board take control manage knob button leds power management
+say computer midi controller midi controller actually point controller screen microprocessor take care power management battery usb leds shutdown power sequence button send midi board computer raspberry pi raspberry pi actually run linux custom linux make guy boot quickly cause wanna wait second second convolver start
+computer connect soundcard whole audio happen audio go computer process go imagine daw computer input output place software call supercollider opensource software operate script imagine plugin input output process sound run algorithm control interface
+
+board bottom basically may call midi controller right actually send midi cable board
+
+exactly base around opensource software basically talk someone old engineer recently say year year ago hard access specialize chip dsp power computer power now able project fast time access build block set together couple build block arm processor lowlevel power document community around forum tutorial application note raspberry pi special version raspberry pi raspberry pi tiny compute platform powerful processor slimline version compute module go little socket documentation freely available real benefit architecture set
+
+great advantage us full linux run software normal fullsize linux obviously allow super rapid prototype allow try quickly work
+
+right right supercollider cross platform supercollider also run mac supercollider script language script process sound run chrismac run linux machine run tiny little computer workflow pretty define begin program develop embed midi controller chris supercollider mac raspberry pi part wasnready yet
+start develop agree specification communicate layer midi use mac write script dsp ready ready join everything
+
+think great time build right worry little build small detail make work worry creative implication think access technology first make easy use
+
+definitely
+
+also mean time worry do creative side use technology think good example actually project
+
+definitely
+
+use mean resource people now guess max live ableton either build instrument use peopleinstruments think interest time musician visual artist access technology cool without skill knowledge detail work macro state think great
+
+even design custom hardware board kit audio everything work engineer device think another nice benefit convolver state completely open hackable encourage everyone screw open read instruction back connect change convolver whatever convolver
+
+dub siren
+
+dub siren
+
+check actual access code snoop around bite
+
+
+
+shall talk convolution actually
+
+convolution
+
+convolution
+
+great time
+
+talk need explain sound right
+
+guess less specific representation luckily prepare since already use screen tatsuya hold large graph right okay remember record hit cymbal pick little grain little imagine grain play back little hit hear represent way assume familiar spectrum
+
+listen cymbal
+
+listen
+
+play back
+
+
+
+letlisten cymbal
+
+sound record cymbal sound play
+
+listen closely high bit
+
+right essentially break sound call spectrum right low frequency mid frequency high frequency low frequency bass mid frequency voice guitar high frequency hihats essentially sound split high go loud specific area sound
+cymbal record example obviously energy high percussive sound also interest pattern point lowfrequency part graph think representation sound actually sound ear right quite bite high little bite low now think convolution actually toy speaker pick another graph white noise
+play sound frequency time loudness max make white noise sound granular convolver call white noise right sound low mid high frequency level now cool convolve two actually sound overlap two now dark shade area tell little exactly original sound right cymbal sound convolve white noise
+since convolution essentially multiplication two now represent dark area almost original sound right maybe hear real quick convolution
+
+hear noise noise without convolution
+
+right okay now play back old sound already bore letmaybe go basic sound imagine single frequency essentially oscillator sound speaker pick another graph little right single sinusoid play low bass note right mid go high true convolution multiplication two spectrum
+now see cool move around different part two spectrum overlap different part now shade dark right hear result convolution max go frequency spectrum use granular convolver right tell little describe sort mix signal obviously go bite also bore input signal now use interest complex spectrum case represent complex synth note right
+maybe sound synth play define fundamental overtone come synthesizer now cool happen now complex overlap two spectrum obviously move around right obviously depend obviously depend signal overlap change produce interest new sonic property right obviously need use synthesize sound use example voice straightforward
+
+mine
+
+help thank stand couple minute tatsuya speak mic connect granular convolver think since control maybe talk bite
+
+speaker talk inaudibly granular convolver speak ride cymbal different tone quality
+
+right play bite right obviously go ahead jam afterwards
+
+
+
+okay havenfinished rebuild point screen mari hasnfinished
+
+mean jam bite convolver beast stay cymbal mean also check else tats record secretly
+
+may embarrass
+
+idea sample
+
+mean limit impulsey cymbal record basically convolution personally find work good think impulsey textural remind maybe bite familiar convolution reverb record room impulse response catch whole frequency information resonant information room
+cymbal impulse transfer textural impulsey sound texture cymbal want say work good use textural impulsey
+
+think
+
+think course
+
+see people term convolve flute speak voice synths synths combination rhythmical textural think textural
+
+true also go long speaker make drone sound granular convolver still hear cymbal attacky hissy cymbal cut
+
+sound change drastically different sound
+
+good
+
+think flexitone anyone know max hear spin-dry sound also sample recognize sample okay spin-dry sound
+
+spin-dry sound
+
+still recognize oh remember now sample use gig actually load drink trolley drag across floor think wonderful sound
+
+yep mean play gig already moscow think right
+
+
+
+experience
+
+good around look interest sound guess point instrument yes fun interest way work sound new way work sound ultimately listen pay attention sound think real driver drive creativity inspire people make different music think far pretty positive
+term everyone engage see less three act incorporate convolver live set see happen term two maybe footage due come think wrap talk
+
+
+
+okay go speaker point screen bravo mari
+
+think open question open conversation guy
+
+mic somewhere
+
+question easy cool leave oh
+
+super cool idea fuse two different sound make sound new say combine two different synthesizer example imagine turn funky question do do put technology small device
+
+2
+
+think latter do convolution hundred year old
+
+super old
+
+expensive computationally expensive process recently last decade possible actually use process sound even recent actually put handheld hardware device
+think knowledge first time convolution granular convolution put dedicate piece hardware
+
+mean sorry
+
+think place creative music production context less user come contact convolution reverbs reverb plugins
+
+guitar simulation probably amp simulation
+
+right think actually convolution inside
+
+sure
+
+time read convolution maybe reverb context use plugins already since now usually plenty power machine think outside maybe sound design much focus creative process
+
+tats may call tats
+
+course
+
+cool say use gig
+
+yes
+
+sound use speak difference impulsey textural have hear use set
+
+play ambient set combination percussive sound synthesizer simple set two synthesizer actually korg volca fm korg monotribe analog synth analog drum monotribe filter fm output essentially output convolver mix percussive hat pady chord chop monotribe filter favorite combination way
+smear use device convolve trolley sound hear make beautiful texture change grain size slowly sample pick various small nuance grain move whole hour think great
+
+
+
+curious hear
+
+hope other
+
+thank
+
+thank
+
+twopart question say basically convolution multiply right multiply two wave
+
+spectrum frequency domain sound mean
+
+oh okay
+
+show screen show
+
+question eurorack module multiplier essentially convolution
+
+multiply time domain wave imagine sine wave max draw sine wave air hand
+
+oh see
+
+represent line spectrum spectrogram show frequency magnitude sine wave time domain will look go forever spectrum will line multiply frequency sound time domain signal waveform transfer
+
+ring modulator right
+
+exactly
+
+3 part guess multiplication connect granular synthesizer essentially convolver right
+
+right still multiply time domain signal
+
+okay say multiplication spectrum
+
+multiplication convolution mean
+
+convolution
+
+convolution device granular
+
+mean even need granular sampler maybe granular convolver take call grain big record analyze frequency content grain use fingerprint imply live input change control slice different grain calculation parallel analyze crossfade different grain convolution will always need analyze actually
+
+plan eurorack format
+
+even plan sell
+
+okay okay
+
+say raw minimal implementation granular convolution think still learn still try figure firstly whether make good commercial product possibility think open try absorb right now
+
+mean see already form factor round discussion also hold nice collaboration tats academy think also besides fun also make material study product design study super far commercial product every sense manufacture doesnmake sense make nice feel good
+
+see people use look bad
+
+guy speaker pick granular convolver prototype actually explore aluminum explore stainless steel answer question another perspective also completely reengineer every sense idea make available
+
+thank
+
+nice
+
+say
+
+nice
+
+thank great talk visual aid amaze may borrow teach future question actually quite simple choice technology unit use raspberry pi maybe support first question guess convolution experience simple concept hard implement right cpu hungry unique product opinion product unique device
+question much push limit raspberry pi mention hack much space leave anyone lucky enough much still top already run
+
+use two four core actually aren trade battery life portable device find balance make sense want push capability raspberry pi yes wasn point probably long grain size able work long grain cause currently set seven millisecond enough wanna zoom certain fragment sound use actually need long convolution depend term performance push bite
+
+maybe bite detail
+
+general cpu loadwise average
+
+think s
+
+maybe mean whatever precise numb since certain time case timewise performance spike obviously hit otherwise dropout will sound absolutely terrible screen drop miss frame bad sound tiny slice silence will sound terrible absolutely drop single frame obviously may problem actually average cpu load high
+
+ask term curiosity much hack space
+
+space
+
+great
+
+remove convolver script put else full cpu power
+
+right thank guy
+
+good okay letwrap thank much attention
+
+thank
+
+thank
