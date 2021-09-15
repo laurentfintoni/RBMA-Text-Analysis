@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 4 Exploratory Analysis in Python | Red Bull Music Academy Lectures: Text Analysis and Topic Modeling</title>
+  <meta name="description" content="Exploring the RBMA lectures archive using text analysis and mining, a project for the Digital Text in the Humanities course at the university of Bologna, 2020/2021." />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 4 Exploratory Analysis in Python | Red Bull Music Academy Lectures: Text Analysis and Topic Modeling" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:image" content="/images/rbmacover.jpg" />
+  <meta property="og:description" content="Exploring the RBMA lectures archive using text analysis and mining, a project for the Digital Text in the Humanities course at the university of Bologna, 2020/2021." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 4 Exploratory Analysis in Python | Red Bull Music Academy Lectures: Text Analysis and Topic Modeling" />
+  
+  <meta name="twitter:description" content="Exploring the RBMA lectures archive using text analysis and mining, a project for the Digital Text in the Humanities course at the university of Bologna, 2020/2021." />
+  <meta name="twitter:image" content="/images/rbmacover.jpg" />
+
+<meta name="author" content="Laurent Fintoni" />
+
+
+<meta name="date" content="2021-09-15" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="corpus-cleaning-in-python.html"/>
+<link rel="next" href="exploratory-analysis-in-r.html"/>
+<script src="libs/header-attrs-2.10/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">RBMA Lectures: Text Analysis and Topic Modeling</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> About</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#pre-processing-steps"><i class="fa fa-check"></i><b>1.1</b> Pre-Processing Steps</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="corpus-cleaning-in-r.html"><a href="corpus-cleaning-in-r.html"><i class="fa fa-check"></i><b>2</b> Corpus Cleaning in R</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="corpus-cleaning-in-r.html"><a href="corpus-cleaning-in-r.html#basic-cleaning"><i class="fa fa-check"></i><b>2.1</b> Basic cleaning</a></li>
+<li class="chapter" data-level="2.2" data-path="corpus-cleaning-in-r.html"><a href="corpus-cleaning-in-r.html#lemmatizing-vs-stemming"><i class="fa fa-check"></i><b>2.2</b> Lemmatizing vs Stemming</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="corpus-cleaning-in-python.html"><a href="corpus-cleaning-in-python.html"><i class="fa fa-check"></i><b>3</b> Corpus Cleaning in Python</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="corpus-cleaning-in-python.html"><a href="corpus-cleaning-in-python.html#basic-cleaning-pt-2"><i class="fa fa-check"></i><b>3.1</b> Basic cleaning pt 2</a></li>
+<li class="chapter" data-level="3.2" data-path="corpus-cleaning-in-python.html"><a href="corpus-cleaning-in-python.html#lemmatizing-vs-stemming-pt-2"><i class="fa fa-check"></i><b>3.2</b> Lemmatizing vs Stemming pt 2</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="exploratory-analysis-in-python.html"><a href="exploratory-analysis-in-python.html"><i class="fa fa-check"></i><b>4</b> Exploratory Analysis in Python</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="exploratory-analysis-in-python.html"><a href="exploratory-analysis-in-python.html#pos-visualisation"><i class="fa fa-check"></i><b>4.1</b> POS Visualisation</a></li>
+<li class="chapter" data-level="4.2" data-path="exploratory-analysis-in-python.html"><a href="exploratory-analysis-in-python.html#lexical-diversity"><i class="fa fa-check"></i><b>4.2</b> Lexical diversity</a></li>
+<li class="chapter" data-level="4.3" data-path="exploratory-analysis-in-python.html"><a href="exploratory-analysis-in-python.html#most-common-words"><i class="fa fa-check"></i><b>4.3</b> Most Common Words</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="exploratory-analysis-in-r.html"><a href="exploratory-analysis-in-r.html"><i class="fa fa-check"></i><b>5</b> Exploratory Analysis in R</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="exploratory-analysis-in-r.html"><a href="exploratory-analysis-in-r.html#co-occurences"><i class="fa fa-check"></i><b>5.1</b> Co-occurences</a></li>
+<li class="chapter" data-level="5.2" data-path="exploratory-analysis-in-r.html"><a href="exploratory-analysis-in-r.html#term-frequency-vs-inverse-document-frequency"><i class="fa fa-check"></i><b>5.2</b> Term Frequency vs Inverse Document Frequency</a></li>
+<li class="chapter" data-level="5.3" data-path="exploratory-analysis-in-r.html"><a href="exploratory-analysis-in-r.html#collocations"><i class="fa fa-check"></i><b>5.3</b> Collocations</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="topic-modeling.html"><a href="topic-modeling.html"><i class="fa fa-check"></i><b>6</b> Topic Modeling</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="topic-modeling.html"><a href="topic-modeling.html#topic-modeling-in-r"><i class="fa fa-check"></i><b>6.1</b> Topic Modeling in R</a></li>
+<li class="chapter" data-level="6.2" data-path="topic-modeling.html"><a href="topic-modeling.html#topic-modeling-in-python"><i class="fa fa-check"></i><b>6.2</b> Topic Modeling in Python</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>7</b> Conclusion</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Red Bull Music Academy Lectures: Text Analysis and Topic Modeling</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="exploratory-analysis-in-python" class="section level1" number="4">
+<h1><span class="header-section-number">Chapter 4</span> Exploratory Analysis in Python</h1>
+<p>Following the cleaning process I worked on some exploratory analysis, using a mix of quantitative and qualitative approaches, to ensure that the data held up to various basic descriptions so that I could confidently move forward with topic modeling.</p>
+<p>For this I focused on the three corpus versions mentioned previously: the raw corpus, corpus lemmatized with R, and corpus lemmatized with Python. As with the cleaning process, the various analysis presented in this and the next notebook were refined through an iterative process and I’ve tried to keep the R and Python versions different, playing to each program’s strength rather than trying to replicate everything across both as I had done with the corpus cleaning.</p>
+<p>In Python, I transferred the ntlk corpus objects to pandas<a href="#fn8" class="footnote-ref" id="fnref8"><sup>8</sup></a>, creating dataframes for each corpus version that contained various elements I would need for analysis and topic modeling. I then pickled them so they could be easily reused. These dataframes include raw transcript, tokens, POS, lexical diversity scores, and total types and tokens counts.</p>
+<p>As with the previous notebook, I use plain code and image versions of Python outputs and only include code chunks where necessary.</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="exploratory-analysis-in-python.html#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(reticulate)</span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb42-1"><a href="exploratory-analysis-in-python.html#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co">#import libraries </span></span>
+<span id="cb42-2"><a href="exploratory-analysis-in-python.html#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span></code></pre></div>
+<pre><code>import nltk
+from nltk.corpus import PlaintextCorpusReader
+import re 
+import matplotlib.pyplot as plt
+from wordcloud import WordCloud
+from IPython.display import display, display_html, HTML
+from nltk.probability import FreqDist
+from itertools import chain
+from yellowbrick.text.postag import postag
+from lexical_diversity import lex_div as ld 
+from sklearn.feature_extraction.text import CountVectorizer
+from yellowbrick.text import FreqDistVisualizer</code></pre>
+<pre><code>#Set corpora roots 
+rbma_corpus = PlaintextCorpusReader(&#39;/Users/laurentfintoni/Desktop/University/COURSE DOCS/YEAR 1/Q3/DIGITAL TEXT/PROJECT/rbma-lectures-master/data_no_empty_files_new_file_names_no_intro&#39;, &#39;.*\.txt&#39;)
+rbma_corpus_clean_lemm_v2 = PlaintextCorpusReader(&#39;/Users/laurentfintoni/Desktop/University/COURSE DOCS/YEAR 1/Q3/DIGITAL TEXT/PROJECT/RBMA_CLEAN_R_LEMM_V2&#39;, &#39;.*\.txt&#39;)
+rbma_corpus_py_clean_lemm_v2 = PlaintextCorpusReader(&#39;/Users/laurentfintoni/Desktop/University/COURSE DOCS/YEAR 1/Q3/DIGITAL TEXT/PROJECT/RBMA_CLEAN_PY_LEMM_V2_POS&#39;, &#39;.*\.txt&#39;)
+
+#make a list of the corpora and give them pretty titles
+rbma_corpus_list = [rbma_corpus, rbma_corpus_clean_lemm_v2, rbma_corpus_py_clean_lemm_v2]
+title_list = [&#39;RBMA Raw&#39;, &#39;RBMA R V2 LEMM&#39;, &#39;RBMA PY V2 LEMM&#39;]
+
+#create dataframes of each corpus and pickle for reuse later
+def corpus_to_df(input_corpus, title):
+    lecture_name = [re.sub(&#39;-|.txt&#39;, &#39; &#39;, d) for d in input_corpus.fileids()]
+    transcript = [input_corpus.raw(d) for d in input_corpus.fileids()]
+    tokens = [input_corpus.words(d) for d in input_corpus.fileids()]
+    total_tokens = [len(input_corpus.words(d)) for d in input_corpus.fileids()]
+    types = [len(set(input_corpus.words(d))) for d in input_corpus.fileids()]
+    pos = [nltk.pos_tag(input_corpus.words(d)) for d in input_corpus.fileids()]
+    mtld = [ld.mtld(input_corpus.words(d)) for d in input_corpus.fileids()]
+    hdd = [ld.hdd(input_corpus.words(d)) for d in input_corpus.fileids()]
+    corpus_df = pd.DataFrame({&#39;Lecture&#39;: lecture_name, &#39;Transcript&#39;: transcript, &#39;Tokens&#39;: tokens, &#39;Total Tokens&#39;: total_tokens, &#39;Total Types&#39;: types, &#39;POS&#39;: pos, &#39;HDD Score&#39;: hdd, &#39;MTLD Score&#39;: mtld}).set_index(&#39;Lecture&#39;)
+    corpus_df.to_pickle(f&#39;./PICKLES/{title}.pkl&#39;)
+    return &#39;Process complete!&#39;</code></pre>
+<div class="sourceCode" id="cb45"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb45-1"><a href="exploratory-analysis-in-python.html#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co">#create list of variables for pickled dfs </span></span>
+<span id="cb45-2"><a href="exploratory-analysis-in-python.html#cb45-2" aria-hidden="true" tabindex="-1"></a>rbma_raw_pickle <span class="op">=</span> <span class="st">&#39;/Users/laurentfintoni/Desktop/University/COURSE DOCS/YEAR 1/Q3/DIGITAL TEXT/PROJECT/PICKLES/RBMA Raw.pkl&#39;</span></span>
+<span id="cb45-3"><a href="exploratory-analysis-in-python.html#cb45-3" aria-hidden="true" tabindex="-1"></a>rbma_raw_df <span class="op">=</span> pd.read_pickle(rbma_raw_pickle)</span>
+<span id="cb45-4"><a href="exploratory-analysis-in-python.html#cb45-4" aria-hidden="true" tabindex="-1"></a>rbma_corpus_clean_lemm_v2_pickle <span class="op">=</span> <span class="st">&#39;/Users/laurentfintoni/Desktop/University/COURSE DOCS/YEAR 1/Q3/DIGITAL TEXT/PROJECT/PICKLES/RBMA R V2 LEMM.pkl&#39;</span></span>
+<span id="cb45-5"><a href="exploratory-analysis-in-python.html#cb45-5" aria-hidden="true" tabindex="-1"></a>rbma_R_df <span class="op">=</span> pd.read_pickle(rbma_corpus_clean_lemm_v2_pickle)</span>
+<span id="cb45-6"><a href="exploratory-analysis-in-python.html#cb45-6" aria-hidden="true" tabindex="-1"></a>rbma_corpus_py_clean_lemm_v2_pickle <span class="op">=</span> <span class="st">&#39;/Users/laurentfintoni/Desktop/University/COURSE DOCS/YEAR 1/Q3/DIGITAL TEXT/PROJECT/PICKLES/RBMA PY V2 LEMM.pkl&#39;</span></span>
+<span id="cb45-7"><a href="exploratory-analysis-in-python.html#cb45-7" aria-hidden="true" tabindex="-1"></a>rbma_python_df <span class="op">=</span> pd.read_pickle(rbma_corpus_py_clean_lemm_v2_pickle)</span>
+<span id="cb45-8"><a href="exploratory-analysis-in-python.html#cb45-8" aria-hidden="true" tabindex="-1"></a>rbma_pickle_list <span class="op">=</span> [rbma_raw_df, rbma_R_df, rbma_python_df]</span>
+<span id="cb45-9"><a href="exploratory-analysis-in-python.html#cb45-9" aria-hidden="true" tabindex="-1"></a>rbma_pickles_titles <span class="op">=</span> [<span class="st">&#39;RBMA Raw&#39;</span>, <span class="st">&#39;RBMA R&#39;</span>, <span class="st">&#39;RBMA Python&#39;</span>]</span></code></pre></div>
+<hr />
+<div id="pos-visualisation" class="section level2" number="4.1">
+<h2><span class="header-section-number">4.1</span> POS Visualisation</h2>
+<p>I used the PosTagVisualizer from the Yellowbrick library to create bar charts that show the proportions of different parts of speech in a corpus.</p>
+<p>This visualisation is most meaningful in showing how the cleaning process impacted the corpus: the Python version has more verbs and modals, likely because the R version went through additional steps that removed modals that appeared in the top words, and both clean versions are composed primarily of nouns, verbs, adjectives, and adverbs. Oddly the adjective count increased slightly between each version (from 384378 in the raw corpus to 419007 and 433524 in the cleaned versions), which I assume might be due to some sort of misinterpretation in the POS tagging process.</p>
+<pre><code>raw_list = [rbma_raw_df[&#39;POS&#39;].tolist()]
+r_list = [rbma_R_df[&#39;POS&#39;].tolist()]
+py_list = [rbma_python_df[&#39;POS&#39;].tolist()]
+fig, (ax1,ax2, ax3) = plt.subplots(1,3, figsize=(20,8))  
+fig.suptitle(&#39;POS Plots&#39;)
+postag(raw_list, ax=ax1, show=False)
+postag(r_list, ax=ax2, show=False)
+postag(py_list, ax=ax3, show=False)
+display_html(fig)</code></pre>
+<p><img src="images/pos_viz_python.png" width="100%" /></p>
+<hr />
+</div>
+<div id="lexical-diversity" class="section level2" number="4.2">
+<h2><span class="header-section-number">4.2</span> Lexical diversity</h2>
+<p>Next I looked at the lexical diversity of corpus items, which is the measure of how many different words appear in a text. The corpus is best summarized as being made up of conversations about music history and practices, which can include some complex and abstract ideas (such as inspiration or technical practices). There is a small proportion of lectures by non-native English speakers, some of which are conducted in English and others in their native language via translators (I’d say between 10 and 15% at a quick glance). And the majority of conversations are around 60 to 90 minutes long (which affects the length of the transcript). Considering all this, I thought it might be interesting to see if some basic lexical diversity analysis confirmed some of these aspects of the corpus and if it hinted at anything else.</p>
+<p>I first used the basic Token-Type Ratio approach, which calculates the diversity of a text by dividing total unique words (types) by the total amount of works (tokens). However this approach is highly susceptible to length: the longer the document, the lower the chance that a new token will also be a new type, causing the TTR score to drop. As such, looking at TTR scores for the raw corpus we see the shortest texts with the highest scores and the longest one with the lowest scores. For reference the shortest text in the raw corpus has 2679 tokens, while the longest has 35551 tokens.</p>
+<p>To remedy this I used the lexical-diversity library in Python<a href="#fn9" class="footnote-ref" id="fnref9"><sup>9</sup></a>, which allows for easy implementation of various other lexical diversity calculations including Hypergeometric Distribution D (HDD)<a href="#fn10" class="footnote-ref" id="fnref10"><sup>10</sup></a> and Measure of Lexical Textual Diversity (MTLD)<a href="#fn11" class="footnote-ref" id="fnref11"><sup>11</sup></a>, both of which account for the limitations of TTR in different ways: MTLD computes how many words it takes before the TTR falls below a given threshold while HDD uses probability to evaluate the contribution of each word in the text to overall lexical diversity.</p>
+<p>I started by looking at the median values for tokens and types and the means for the different lexical diversity calculations across all three version of the corpus.</p>
+<pre><code>#create DFs for all score types and assign variables to them 
+#TTR scores 
+raw_ttr = rbma_raw_df[&#39;Total Types&#39;] / rbma_raw_df[&#39;Total Tokens&#39;] * 100
+raw_ttr = raw_ttr.sort_values(ascending=False)
+raw_ttr = raw_ttr.to_frame(&#39;TTR Score&#39;)
+r_ttr = rbma_R_df[&#39;Total Types&#39;] / rbma_R_df[&#39;Total Tokens&#39;] * 100
+r_ttr = r_ttr.sort_values(ascending=False)
+r_ttr = r_ttr.to_frame(&#39;TTR Score&#39;)
+py_ttr = rbma_python_df[&#39;Total Types&#39;] / rbma_python_df[&#39;Total Tokens&#39;] * 100
+py_ttr = py_ttr.sort_values(ascending=False)
+py_ttr = py_ttr.to_frame(&#39;TTR Score&#39;)
+ttr_scores = [raw_ttr, r_ttr, py_ttr]
+
+#HDD scores
+raw_hdd = rbma_raw_df[&#39;HDD Score&#39;].sort_values(ascending=False)
+raw_hdd = raw_hdd.to_frame()
+r_hdd = rbma_R_df[&#39;HDD Score&#39;].sort_values(ascending=False)
+r_hdd = r_hdd.to_frame()
+py_hdd = rbma_python_df[&#39;HDD Score&#39;].sort_values(ascending=False)
+py_hdd = py_hdd.to_frame()
+hdd_scores = [raw_hdd, r_hdd, py_hdd]
+
+#MTLD scores 
+raw_mtld = rbma_raw_df[&#39;MTLD Score&#39;].sort_values(ascending=False)
+raw_mtld = raw_mtld.to_frame()
+r_mtld = rbma_R_df[&#39;MTLD Score&#39;].sort_values(ascending=False)
+r_mtld = r_mtld.to_frame()
+py_mtld = rbma_python_df[&#39;MTLD Score&#39;].sort_values(ascending=False)
+py_mtld = py_mtld.to_frame()
+mtld_scores = [raw_mtld, r_mtld, py_mtld]</code></pre>
+<div class="sourceCode" id="cb48"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb48-1"><a href="exploratory-analysis-in-python.html#cb48-1" aria-hidden="true" tabindex="-1"></a>lex_div_averages <span class="op">=</span> <span class="st">&#39;/Users/laurentfintoni/Desktop/University/COURSE DOCS/YEAR 1/Q3/DIGITAL TEXT/PROJECT/PICKLES/lex_div_averages.pkl&#39;</span></span>
+<span id="cb48-2"><a href="exploratory-analysis-in-python.html#cb48-2" aria-hidden="true" tabindex="-1"></a>lex_div_averages <span class="op">=</span> pd.read_pickle(lex_div_averages)</span>
+<span id="cb48-3"><a href="exploratory-analysis-in-python.html#cb48-3" aria-hidden="true" tabindex="-1"></a>lex_div_averages</span></code></pre></div>
+<pre><code>##              Tokens Median  Types Median   TTR Mean  HDD Mean   MTLD Mean
+## Corpus                                                                   
+## RBMA Raw           13365.5        1682.5  13.148197  0.830545   63.217668
+## RBMA R              4009.5        1114.0  28.540437  0.931667  101.318943
+## RBMA Python         4621.5        1151.0  25.687417  0.920383   92.314370</code></pre>
+<p>As we can see, the proportion of unique words to total words jumps from around 12% in the raw corpus to 25% in the cleaned versions, and in turn the various calculation scores increase.</p>
+<p>Next I looked at each different calculation method via scatter plot, to ensure that the data was evenly distributed.</p>
+<pre><code>#create a figure and assign scatters for TTR score to it (repeat plot section with HDD and MTLD scores)
+raw_ttr[&#39;Total Tokens&#39;] = rbma_raw_df[&#39;Total Tokens&#39;]
+r_ttr[&#39;Total Tokens&#39;] = rbma_R_df[&#39;Total Tokens&#39;]
+py_ttr[&#39;Total Tokens&#39;] = rbma_python_df[&#39;Total Tokens&#39;]
+fig, (ax1,ax2, ax3) = plt.subplots(1,3, figsize=(20,8))  
+fig.suptitle(&#39;TTR Scores&#39;)
+raw_ttr.plot.scatter(x=&#39;Total Tokens&#39;, y=&#39;TTR Score&#39;, c=&#39;TTR Score&#39;, colormap=&#39;viridis&#39;, ax=ax1, title=&#39;RBMA Raw&#39;)
+r_ttr.plot.scatter(x=&#39;Total Tokens&#39;, y=&#39;TTR Score&#39;, c=&#39;TTR Score&#39;, colormap=&#39;viridis&#39;, ax=ax2, title=&#39;RBMA R&#39;)
+py_ttr.plot.scatter(x=&#39;Total Tokens&#39;, y=&#39;TTR Score&#39;, c=&#39;TTR Score&#39;, colormap=&#39;viridis&#39;, ax=ax3, title=&#39;RBMA Python&#39;)
+display_html(fig)</code></pre>
+<p><img src="images/TTR_scatters.png" width="100%" /><img src="images/HDD_scatters.png" width="100%" /><img src="images/MTLD_scatters.png" width="100%" /></p>
+<p>These plots show a normal distribution, with the odd outlier at the top and bottom which are also reflected in the top / bottom 10 entries I looked at next. Most importantly the majority of texts in each version of the corpus fall within a range that matches the means and which appears to reflect low to moderate levels of lexical diversity overall. We can also see how the cleaning process affects the plots, with the cleaned versions being more spread out.</p>
+<p>As a last step I looked at the top 10 and bottom 10 texts for each lexical diversity calculation.</p>
+<pre><code>combined_list_ttr = [raw_ttr, r_ttr, py_ttr]
+combined_list_hdd = [raw_hdd, r_hdd, py_hdd]
+combined_list_mtld = [raw_mtld, r_mtld, py_mtld]
+
+#Display top 10 side by side, one row for each calculation, one column for each corpus - raw, R, Python (swap head for tail to display bottom 10)
+output = &quot;&quot;
+for df in combined_list_ttr:
+    output += df.head(10).style.set_table_attributes(&quot;style=&#39;display:inline&#39;&quot;)._repr_html_()
+    output += &quot;\xa0\xa0\xa0&quot;
+display(HTML(output))
+
+output = &quot;&quot;
+for df in combined_list_hdd:
+    output += df.head(10).style.set_table_attributes(&quot;style=&#39;display:inline&#39;&quot;)._repr_html_()
+    output += &quot;\xa0\xa0\xa0&quot;
+display(HTML(output))
+
+output = &quot;&quot;
+for df in combined_list_mtld:
+    output += df.head(10).style.set_table_attributes(&quot;style=&#39;display:inline&#39;&quot;)._repr_html_()
+    output += &quot;\xa0\xa0\xa0&quot;
+display(HTML(output))</code></pre>
+<p><img src="images/TTR_scores_head.png" width="90%" /><img src="images/TTR_scores_tail.png" width="90%" /><img src="images/HDD_scores_head.png" width="90%" /><img src="images/HDD_scores_tail.png" width="90%" /><img src="images/MTLD_scores_head.png" width="90%" /><img src="images/MTLD_scores_tail.png" width="90%" /></p>
+<p>I found some interesting observations in these results:</p>
+<ul>
+<li><p>A handful of lectures conducted in native languages have high scores in the cleaned versions such as Kitshkrieg (German), Tullio de Piscopo (Italian), Yury Chernavsky (Russian), Wolfgang Voigt (German), Modeselektor (German), Peder Mannerfelt (Swedish) and Xavier Veilhan (French). My assumption is that these high scores are likely due to the transcripts being translations which created a higher quality of text. In the case of Voigt and Modeselektor, they also have lectures in the corpus held a decade or so before that were in English, and not their native German. Looking at the MTLD scores for these we see some sizeable differences, the translated transcripts score almost double, while differences in HDD scores are much less pronounced which is likely a reflection of how HDD is computed as HDD scores are overall in a tighter range than the other two as we can see from the scatter plots. The differences between English and German lectures for Voigt and Modeselektor lead me to assume that translations have a likely impact on lexical diversity.</p></li>
+<li><p>The other side of the above observation can be seen in lectures conducted in a mix of English and a native language or in English by non-native, non-fluent speakers, which show up in the bottom ranks. These include Yuzo Koshiro and Toshio Matsuura (conducted in Japanese with both host and translator), Damo Suzuki (Japanese native speaking English), Orchestra di Santa Cecilia (conducted in Italian and English by the lecturers), Arthur Verocai (conducted in a mix of broken English and Brazilian), and Bappi Lahiri (Indian native speaking English).</p></li>
+<li><p>Another interesting observation is the presence of lecturers from the world of hip-hop in the bottom 10 lists for HDD and MTLD scores, including A$AP Rocky, No ID, Mike Will Made-It, Frank Rodriguez, DJ Dahi, Oh No, and Ka. My assumption here is that there might be a difference in the range of vocabulary (unique types) used in these lectures which creates an adverse impact on the score similar to what happens with the lectures conducted in broken English/native languages. Other factors also include length, the Oh No lecture is one of the shortest in the corpus and thus might be more susceptible to the HDD and MTLD methodologies which try to correct for length, and context, the DJ Dahi lecture took place in Seoul and was partly translated into Korean by the host resulting in much shorter answers by the artist. Furthermore I know from experience that the Ka and No ID lectures, for example, are similar in terms of topics and ideas expressed as some of the lectures in the top 10 and so I suspect that the tendency of some of these artists to express themselves with a more limited vocabulary might be a key factor here and certainly something that would be interesting to look into further.</p></li>
+<li><p>The TTR scores confirm the known issue with the calculation. The shortest lectures appear up top (Reinboth, Madlib, Strobocop) while the longest are in the bottom (Bob Power, Marley Marl, Jam &amp; Lewis, Teddy Riley). In the case of Strobocop for example, which is one of the shortest lectures and conducted by a non-native English speaker in English, we see it in the top 10 in all three versions for TTR but in the bottom 10 for the HDD version of the R corpus, highlighting how that particular calculation method compensates for the limitations of TTR.</p></li>
+</ul>
+<p>Overall I would say that it seems to me as if HDD scoring might be most accurate in capturing the various nuances of this particular corpus and that further, more detailed lexical diversity analysis of the corpus could be interesting to see just how artists modulate their speech in public conversations.</p>
+<hr />
+</div>
+<div id="most-common-words" class="section level2" number="4.3">
+<h2><span class="header-section-number">4.3</span> Most Common Words</h2>
+<p>Lastly I looked at the most common words in the corpus. I used the Frequency Distribution method built into nltk to generate lists alongside Yellowbrick’s FreqDist vizualizer and word clouds for additional visualization options.<a href="#fn12" class="footnote-ref" id="fnref12"><sup>12</sup></a></p>
+<pre><code>#return top 15 most common words in corpus and their frequency 
+
+def most_common_words(input_corpus):
+    mcw_corpus = []
+    for d in input_corpus.fileids():
+        fdist = FreqDist(input_corpus.words(d))
+        mcw_corpus.append(fdist.most_common())
+    final_list = [x for x in chain.from_iterable(mcw_corpus)]
+    commondf = pd.DataFrame.from_records(final_list, columns=[&#39;Word&#39;, &#39;Frequency&#39;])
+    grouped = commondf.groupby(&#39;Word&#39;, sort=True).sum()
+    grouped = grouped.sort_values(by=[&#39;Frequency&#39;], ascending=False)
+    return grouped[0:15]
+
+#process all corpora to return top 15 most common words and frequencies 
+
+def display_side_by_side(dfs:list, captions:list):
+    output = &quot;&quot;
+    combined = dict(zip(captions, dfs))
+    for caption, df in combined.items():
+        output += df.style.set_table_attributes(&quot;style=&#39;display:inline&#39;&quot;).set_caption(caption)._repr_html_()
+        output += &quot;\xa0\xa0\xa0&quot;
+    display(HTML(output))
+
+display_side_by_side([most_common_words(c) for c in rbma_corpus_list], [t for t in title_list])</code></pre>
+<p><img src="images/most_common_py.png" width="75%" /></p>
+<p>Unsurprisingly, the raw corpus doesn’t tell us anything meaningful however the cleaned versions offer some insights.</p>
+<p>Combined together “music,” “think,” “know,” “record,” “make,” and “people” offer a simple summary of the central theme of the corpus, which is also a summary of what the Red Bull Music Academy as a project represented: the bringing together of people through music in order to learn, create, and celebrate. While raw frequency doesn’t equate relevance, music is the central idea of this corpus and as such I’d expect to see it in the top three most frequent terms. The verbs “think” and “know” reflect the kind of theorising I’d expect to see in a corpus of educational lectures about music, while “record” and “sound” reflect more physical aspects.</p>
+<p>Barcharts for the top 50 terms and wordclouds below further confirm these insights.</p>
+<pre><code>#vectorize the corpus DFs and display barcharts of Frequency Distribution, top 50 words for R version (same for Python but call the other DF)
+vectorizer = CountVectorizer()
+docs = vectorizer.fit_transform(rbma_R_df.Transcript)
+features = vectorizer.get_feature_names()
+visualizer = FreqDistVisualizer(features=features, orient=&#39;h&#39;, size=(1440, 900), title=&#39;Frequency Distribution of Top 50 tokens in R Corpus&#39;)
+visualizer.fit(docs)
+display_html(visualizer.show())</code></pre>
+<p><img src="images/freq_dist_R.png" width="100%" /><img src="images/freq_dist_py.png" width="100%" /></p>
+<pre><code>#display wordcloud of corpus 
+rbma_corpus_list = [rbma_corpus_clean_lemm_v2, rbma_corpus_py_clean_lemm_v2]
+title_list = [&#39;RBMA R Corpus&#39;, &#39;RBMA Python Corpus&#39;]
+
+def corpus_to_wordcloud(corpus_list):
+        plt.figure(figsize=(20,8))
+        for i, c in enumerate(corpus_list):
+                text = &quot; &quot;.join(t for t in c.words())
+                wordcloud = WordCloud(background_color=&quot;white&quot;).generate(text)
+                plt.subplot(1, 2, i+1)
+                plt.plot()
+                plt.imshow(wordcloud, interpolation=&#39;bilinear&#39;)
+                plt.axis(&quot;off&quot;)
+                plt.title(title_list[i])
+        plt.show()
+
+display_html(corpus_to_wordcloud(rbma_corpus_list))</code></pre>
+<p><img src="images/wordclouds.png" width="100%" /></p>
+
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="8">
+<li id="fn8"><p><a href="https://pandas.pydata.org/" class="uri">https://pandas.pydata.org/</a><a href="exploratory-analysis-in-python.html#fnref8" class="footnote-back">↩︎</a></p></li>
+<li id="fn9"><p><a href="https://pypi.org/project/lexical-diversity/" class="uri">https://pypi.org/project/lexical-diversity/</a><a href="exploratory-analysis-in-python.html#fnref9" class="footnote-back">↩︎</a></p></li>
+<li id="fn10"><p><a href="https://journals.sagepub.com/doi/10.1177/0265532207080767" class="uri">https://journals.sagepub.com/doi/10.1177/0265532207080767</a><a href="exploratory-analysis-in-python.html#fnref10" class="footnote-back">↩︎</a></p></li>
+<li id="fn11"><p><a href="https://link.springer.com/article/10.3758/BRM.42.2.381" class="uri">https://link.springer.com/article/10.3758/BRM.42.2.381</a><a href="exploratory-analysis-in-python.html#fnref11" class="footnote-back">↩︎</a></p></li>
+<li id="fn12"><p><a href="https://stackoverflow.com/questions/38783027/jupyter-notebook-display-two-pandas-tables-side-by-side">Stack Overflow thread for the side by side function</a><a href="exploratory-analysis-in-python.html#fnref12" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="corpus-cleaning-in-python.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="exploratory-analysis-in-r.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/laurentfintoni/rbma-text-analysis-mining03-exploratory_analysis_py.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

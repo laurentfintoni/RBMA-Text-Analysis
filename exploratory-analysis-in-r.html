@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 5 Exploratory Analysis in R | Red Bull Music Academy Lectures: Text Analysis and Topic Modeling</title>
+  <meta name="description" content="Exploring the RBMA lectures archive using text analysis and mining, a project for the Digital Text in the Humanities course at the university of Bologna, 2020/2021." />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 5 Exploratory Analysis in R | Red Bull Music Academy Lectures: Text Analysis and Topic Modeling" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:image" content="/images/rbmacover.jpg" />
+  <meta property="og:description" content="Exploring the RBMA lectures archive using text analysis and mining, a project for the Digital Text in the Humanities course at the university of Bologna, 2020/2021." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 5 Exploratory Analysis in R | Red Bull Music Academy Lectures: Text Analysis and Topic Modeling" />
+  
+  <meta name="twitter:description" content="Exploring the RBMA lectures archive using text analysis and mining, a project for the Digital Text in the Humanities course at the university of Bologna, 2020/2021." />
+  <meta name="twitter:image" content="/images/rbmacover.jpg" />
+
+<meta name="author" content="Laurent Fintoni" />
+
+
+<meta name="date" content="2021-09-15" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="exploratory-analysis-in-python.html"/>
+<link rel="next" href="topic-modeling.html"/>
+<script src="libs/header-attrs-2.10/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">RBMA Lectures: Text Analysis and Topic Modeling</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> About</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#pre-processing-steps"><i class="fa fa-check"></i><b>1.1</b> Pre-Processing Steps</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="corpus-cleaning-in-r.html"><a href="corpus-cleaning-in-r.html"><i class="fa fa-check"></i><b>2</b> Corpus Cleaning in R</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="corpus-cleaning-in-r.html"><a href="corpus-cleaning-in-r.html#basic-cleaning"><i class="fa fa-check"></i><b>2.1</b> Basic cleaning</a></li>
+<li class="chapter" data-level="2.2" data-path="corpus-cleaning-in-r.html"><a href="corpus-cleaning-in-r.html#lemmatizing-vs-stemming"><i class="fa fa-check"></i><b>2.2</b> Lemmatizing vs Stemming</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="corpus-cleaning-in-python.html"><a href="corpus-cleaning-in-python.html"><i class="fa fa-check"></i><b>3</b> Corpus Cleaning in Python</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="corpus-cleaning-in-python.html"><a href="corpus-cleaning-in-python.html#basic-cleaning-pt-2"><i class="fa fa-check"></i><b>3.1</b> Basic cleaning pt 2</a></li>
+<li class="chapter" data-level="3.2" data-path="corpus-cleaning-in-python.html"><a href="corpus-cleaning-in-python.html#lemmatizing-vs-stemming-pt-2"><i class="fa fa-check"></i><b>3.2</b> Lemmatizing vs Stemming pt 2</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="exploratory-analysis-in-python.html"><a href="exploratory-analysis-in-python.html"><i class="fa fa-check"></i><b>4</b> Exploratory Analysis in Python</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="exploratory-analysis-in-python.html"><a href="exploratory-analysis-in-python.html#pos-visualisation"><i class="fa fa-check"></i><b>4.1</b> POS Visualisation</a></li>
+<li class="chapter" data-level="4.2" data-path="exploratory-analysis-in-python.html"><a href="exploratory-analysis-in-python.html#lexical-diversity"><i class="fa fa-check"></i><b>4.2</b> Lexical diversity</a></li>
+<li class="chapter" data-level="4.3" data-path="exploratory-analysis-in-python.html"><a href="exploratory-analysis-in-python.html#most-common-words"><i class="fa fa-check"></i><b>4.3</b> Most Common Words</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="exploratory-analysis-in-r.html"><a href="exploratory-analysis-in-r.html"><i class="fa fa-check"></i><b>5</b> Exploratory Analysis in R</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="exploratory-analysis-in-r.html"><a href="exploratory-analysis-in-r.html#co-occurences"><i class="fa fa-check"></i><b>5.1</b> Co-occurences</a></li>
+<li class="chapter" data-level="5.2" data-path="exploratory-analysis-in-r.html"><a href="exploratory-analysis-in-r.html#term-frequency-vs-inverse-document-frequency"><i class="fa fa-check"></i><b>5.2</b> Term Frequency vs Inverse Document Frequency</a></li>
+<li class="chapter" data-level="5.3" data-path="exploratory-analysis-in-r.html"><a href="exploratory-analysis-in-r.html#collocations"><i class="fa fa-check"></i><b>5.3</b> Collocations</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="topic-modeling.html"><a href="topic-modeling.html"><i class="fa fa-check"></i><b>6</b> Topic Modeling</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="topic-modeling.html"><a href="topic-modeling.html#topic-modeling-in-r"><i class="fa fa-check"></i><b>6.1</b> Topic Modeling in R</a></li>
+<li class="chapter" data-level="6.2" data-path="topic-modeling.html"><a href="topic-modeling.html#topic-modeling-in-python"><i class="fa fa-check"></i><b>6.2</b> Topic Modeling in Python</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>7</b> Conclusion</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Red Bull Music Academy Lectures: Text Analysis and Topic Modeling</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="exploratory-analysis-in-r" class="section level1" number="5">
+<h1><span class="header-section-number">Chapter 5</span> Exploratory Analysis in R</h1>
+<p>For the exploratory analysis in R I focused on using the tm and <strong>quanteda</strong> <span class="citation">(<a href="#ref-R-quanteda" role="doc-biblioref">Benoit et al. 2021</a>)</span> packages: the former because of its simple methods for finding co-occurences and frequent terms across documents and the latter for its textstat sub-package and because it will also be the package I use for topic modeling in R.</p>
+<p>With quanteda I created Document Term Matrixes from the corpus versions, which were then used for the majority of operations. This allowed me to look at frequency in a different way than I had done in Python where I was only using the corpus items.</p>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="exploratory-analysis-in-r.html#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tm)</span>
+<span id="cb55-2"><a href="exploratory-analysis-in-r.html#cb55-2" aria-hidden="true" tabindex="-1"></a>raw_corpus<span class="ot">&lt;-</span> <span class="fu">VCorpus</span>(<span class="fu">DirSource</span>(<span class="st">&quot;FILES/rbma-lectures-master/data_no_empty_files_new_file_names_no_intro&quot;</span>)); r_corpus<span class="ot">&lt;-</span> <span class="fu">VCorpus</span>(<span class="fu">DirSource</span>(<span class="st">&quot;FILES/RBMA_CLEAN_R_LEMM_V2&quot;</span>)); py_corpus<span class="ot">&lt;-</span> <span class="fu">VCorpus</span>(<span class="fu">DirSource</span>(<span class="st">&quot;FILES/RBMA_CLEAN_PY_LEMM_V2_POS&quot;</span>));</span>
+<span id="cb55-3"><a href="exploratory-analysis-in-r.html#cb55-3" aria-hidden="true" tabindex="-1"></a>raw_dtm<span class="ot">&lt;-</span> <span class="fu">DocumentTermMatrix</span>(raw_corpus); r_dtm<span class="ot">&lt;-</span> <span class="fu">DocumentTermMatrix</span>(r_corpus); py_dtm<span class="ot">&lt;-</span> <span class="fu">DocumentTermMatrix</span>(py_corpus)</span></code></pre></div>
+<p>A quick glance at the resulting DTMs show high percentages of sparsity so I decided to reduce their sizes to make them easier to handle and help me focus on the most useful and meaningful terms.</p>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="exploratory-analysis-in-r.html#cb56-1" aria-hidden="true" tabindex="-1"></a>raw_dtm; r_dtm; py_dtm</span></code></pre></div>
+<pre><code>## &lt;&lt;DocumentTermMatrix (documents: 468, terms: 124509)&gt;&gt;
+## Non-/sparse entries: 1018563/57251649
+## Sparsity           : 98%
+## Maximal term length: 84
+## Weighting          : term frequency (tf)</code></pre>
+<pre><code>## &lt;&lt;DocumentTermMatrix (documents: 468, terms: 44933)&gt;&gt;
+## Non-/sparse entries: 518877/20509767
+## Sparsity           : 98%
+## Maximal term length: 63
+## Weighting          : term frequency (tf)</code></pre>
+<pre><code>## &lt;&lt;DocumentTermMatrix (documents: 468, terms: 37549)&gt;&gt;
+## Non-/sparse entries: 531743/17041189
+## Sparsity           : 97%
+## Maximal term length: 33
+## Weighting          : term frequency (tf)</code></pre>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="exploratory-analysis-in-r.html#cb60-1" aria-hidden="true" tabindex="-1"></a>raw_dtm<span class="ot">&lt;-</span> <span class="fu">removeSparseTerms</span>(raw_dtm, <span class="fl">0.5</span>); r_dtm<span class="ot">&lt;-</span> <span class="fu">removeSparseTerms</span>(r_dtm, <span class="fl">0.5</span>); py_dtm<span class="ot">&lt;-</span> <span class="fu">removeSparseTerms</span>(py_dtm, <span class="fl">0.5</span>)</span>
+<span id="cb60-2"><a href="exploratory-analysis-in-r.html#cb60-2" aria-hidden="true" tabindex="-1"></a>raw_dtm; r_dtm; py_dtm</span></code></pre></div>
+<pre><code>## &lt;&lt;DocumentTermMatrix (documents: 468, terms: 788)&gt;&gt;
+## Non-/sparse entries: 278529/90255
+## Sparsity           : 24%
+## Maximal term length: 11
+## Weighting          : term frequency (tf)</code></pre>
+<pre><code>## &lt;&lt;DocumentTermMatrix (documents: 468, terms: 494)&gt;&gt;
+## Non-/sparse entries: 172989/58203
+## Sparsity           : 25%
+## Maximal term length: 12
+## Weighting          : term frequency (tf)</code></pre>
+<pre><code>## &lt;&lt;DocumentTermMatrix (documents: 468, terms: 513)&gt;&gt;
+## Non-/sparse entries: 180991/59093
+## Sparsity           : 25%
+## Maximal term length: 12
+## Weighting          : term frequency (tf)</code></pre>
+<hr />
+<div id="co-occurences" class="section level2" number="5.1">
+<h2><span class="header-section-number">5.1</span> Co-occurences</h2>
+<p>One the things I had struggled to easily do in Python was looking at co-occurences. However, this is much easier to do in R. The tm package provides the findAssocs method as a first step, which returns co-occurences within the DTM based on a specific term and correlation limit.</p>
+<p>I decided to look at associations for ten words from the term frequency list produced in Python which I consider thematically important to the corpus. They are: “music”, “think”, “people”, “know”, “record”, “sound”, “time”, “song”, “listen” and “track.”</p>
+<p>I set the correlation limit for each term to a level that would allow me to have enough results to analyze. In general that threshold was between 0.2 and 0.5 for the cleaned versions, and 0.3 to 0.5 for the raw corpus, denoting low to moderate levels of correlation.</p>
+<p>To make analyzing the data easier I turned these results into a combined data frame. I first assigned the findAssocs searches to variables, then turned those variables into data frames containing columns for terms, score, and corpus source, and finally combined the data frames into one. I used the dplyr <span class="citation">(<a href="#ref-R-dplyr" role="doc-biblioref">Wickham et al. 2021</a>)</span> and qdap <span class="citation">(<a href="#ref-R-qdap" role="doc-biblioref">Rinker 2020</a>)</span> packages to do this.</p>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="exploratory-analysis-in-r.html#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb64-2"><a href="exploratory-analysis-in-r.html#cb64-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span> (qdap)</span>
+<span id="cb64-3"><a href="exploratory-analysis-in-r.html#cb64-3" aria-hidden="true" tabindex="-1"></a><span class="co">#set associations to variables and turn into df</span></span>
+<span id="cb64-4"><a href="exploratory-analysis-in-r.html#cb64-4" aria-hidden="true" tabindex="-1"></a>raw_music<span class="ot">&lt;-</span> <span class="fu">findAssocs</span>(raw_dtm, <span class="st">&quot;music&quot;</span>, <span class="fl">0.3</span>); raw_music<span class="ot">&lt;-</span> <span class="fu">list_vect2df</span>(raw_music, <span class="at">col1 =</span> <span class="st">&quot;term&quot;</span>, <span class="at">col2 =</span> <span class="st">&quot;association&quot;</span>, <span class="at">col3 =</span> <span class="st">&quot;score&quot;</span>); r_music<span class="ot">&lt;-</span> <span class="fu">findAssocs</span>(r_dtm, <span class="st">&quot;music&quot;</span>, <span class="fl">0.3</span>); r_music<span class="ot">&lt;-</span> <span class="fu">list_vect2df</span>(r_music, <span class="at">col1 =</span> <span class="st">&quot;term&quot;</span>, <span class="at">col2 =</span> <span class="st">&quot;association&quot;</span>, <span class="at">col3 =</span> <span class="st">&quot;score&quot;</span>); py_music<span class="ot">&lt;-</span> <span class="fu">findAssocs</span>(py_dtm, <span class="st">&quot;music&quot;</span>, <span class="fl">0.3</span>); py_music<span class="ot">&lt;-</span> <span class="fu">list_vect2df</span>(py_music, <span class="at">col1 =</span> <span class="st">&quot;term&quot;</span>, <span class="at">col2 =</span> <span class="st">&quot;association&quot;</span>, <span class="at">col3 =</span> <span class="st">&quot;score&quot;</span>)</span>
+<span id="cb64-5"><a href="exploratory-analysis-in-r.html#cb64-5" aria-hidden="true" tabindex="-1"></a>music_assocs_df<span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(raw_music, r_music, py_music, <span class="at">.id =</span> <span class="st">&quot;corpus&quot;</span>)</span>
+<span id="cb64-6"><a href="exploratory-analysis-in-r.html#cb64-6" aria-hidden="true" tabindex="-1"></a><span class="co">#think associations </span></span>
+<span id="cb64-7"><a href="exploratory-analysis-in-r.html#cb64-7" aria-hidden="true" tabindex="-1"></a>raw_think<span class="ot">&lt;-</span> <span class="fu">findAssocs</span>(raw_dtm, <span class="st">&quot;think&quot;</span>, <span class="fl">0.4</span>); raw_think<span class="ot">&lt;-</span> <span class="fu">list_vect2df</span>(raw_think, <span class="at">col1 =</span> <span class="st">&quot;term&quot;</span>, <span class="at">col2 =</span> <span class="st">&quot;association&quot;</span>, <span class="at">col3 =</span> <span class="st">&quot;score&quot;</span>); r_think<span class="ot">&lt;-</span> <span class="fu">findAssocs</span>(r_dtm, <span class="st">&quot;think&quot;</span>, <span class="fl">0.4</span>); r_think<span class="ot">&lt;-</span> <span class="fu">list_vect2df</span>(r_think, <span class="at">col1 =</span> <span class="st">&quot;term&quot;</span>, <span class="at">col2 =</span> <span class="st">&quot;association&quot;</span>, <span class="at">col3 =</span> <span class="st">&quot;score&quot;</span>); py_think<span class="ot">&lt;-</span> <span class="fu">findAssocs</span>(py_dtm, <span class="st">&quot;think&quot;</span>, <span class="fl">0.3</span>); py_think<span class="ot">&lt;-</span> <span class="fu">list_vect2df</span>(py_think, <span class="at">col1 =</span> <span class="st">&quot;term&quot;</span>, <span class="at">col2 =</span> <span class="st">&quot;association&quot;</span>, <span class="at">col3 =</span> <span class="st">&quot;score&quot;</span>)</span>
+<span id="cb64-8"><a href="exploratory-analysis-in-r.html#cb64-8" aria-hidden="true" tabindex="-1"></a>think_assocs_df<span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(raw_think, r_think, py_think, <span class="at">.id =</span> <span class="st">&quot;corpus&quot;</span>)</span>
+<span id="cb64-9"><a href="exploratory-analysis-in-r.html#cb64-9" aria-hidden="true" tabindex="-1"></a><span class="co">#people association</span></span>
+<span id="cb64-10"><a href="exploratory-analysis-in-r.html#cb64-10" aria-hidden="true" tabindex="-1"></a>raw_people<span class="ot">&lt;-</span> <span class="fu">findAssocs</span>(raw_dtm, <span class="st">&quot;people&quot;</span>, <span class="fl">0.5</span>); raw_people<span class="ot">&lt;-</span> <span class="fu">list_vect2df</span>(raw_people, <span class="at">col1 =</span> <span class="st">&quot;term&quot;</span>, <span class="at">col2 =</span> <span class="st">&quot;association&quot;</span>, <span class="at">col3 =</span> <span class="st">&quot;score&quot;</span>); r_people<span class="ot">&lt;-</span> <span class="fu">findAssocs</span>(r_dtm, <span class="st">&quot;people&quot;</span>, <span class="fl">0.4</span>); r_people<span class="ot">&lt;-</span> <span class="fu">list_vect2df</span>(r_people, <span class="at">col1 =</span> <span class="st">&quot;term&quot;</span>, <span class="at">col2 =</span> <span class="st">&quot;association&quot;</span>, <span class="at">col3 =</span> <span class="st">&quot;score&quot;</span>); py_people<span class="ot">&lt;-</span> <span class="fu">findAssocs</span>(py_dtm, <span class="st">&quot;people&quot;</span>, <span class="fl">0.4</span>); py_people<span class="ot">&lt;-</span> <span class="fu">list_vect2df</span>(py_people, <span class="at">col1 =</span> <span class="st">&quot;term&quot;</span>, <span class="at">col2 =</span> <span class="st">&quot;association&quot;</span>, <span class="at">col3 =</span> <span class="st">&quot;score&quot;</span>)</span>
+<span id="cb64-11"><a href="exploratory-analysis-in-r.html#cb64-11" aria-hidden="true" tabindex="-1"></a>people_assocs_df<span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(raw_people, r_people, py_people, <span class="at">.id =</span> <span class="st">&quot;corpus&quot;</span>)</span>
+<span id="cb64-12"><a href="exploratory-analysis-in-r.html#cb64-12" aria-hidden="true" tabindex="-1"></a><span class="co">#know association</span></span>
+<span id="cb64-13"><a href="exploratory-analysis-in-r.html#cb64-13" aria-hidden="true" tabindex="-1"></a>raw_know<span class="ot">&lt;-</span> <span class="fu">findAssocs</span>(raw_dtm, <span class="st">&quot;know&quot;</span>, <span class="fl">0.5</span>); raw_know<span class="ot">&lt;-</span> <span class="fu">list_vect2df</span>(raw_know, <span class="at">col1 =</span> <span class="st">&quot;term&quot;</span>, <span class="at">col2 =</span> <span class="st">&quot;association&quot;</span>, <span class="at">col3 =</span> <span class="st">&quot;score&quot;</span>); r_know<span class="ot">&lt;-</span> <span class="fu">findAssocs</span>(r_dtm, <span class="st">&quot;know&quot;</span>, <span class="fl">0.5</span>); r_know<span class="ot">&lt;-</span> <span class="fu">list_vect2df</span>(r_know, <span class="at">col1 =</span> <span class="st">&quot;term&quot;</span>, <span class="at">col2 =</span> <span class="st">&quot;association&quot;</span>, <span class="at">col3 =</span> <span class="st">&quot;score&quot;</span>); py_know<span class="ot">&lt;-</span> <span class="fu">findAssocs</span>(py_dtm, <span class="st">&quot;know&quot;</span>, <span class="fl">0.5</span>); py_know<span class="ot">&lt;-</span> <span class="fu">list_vect2df</span>(py_know, <span class="at">col1 =</span> <span class="st">&quot;term&quot;</span>, <span class="at">col2 =</span> <span class="st">&quot;association&quot;</span>, <span class="at">col3 =</span> <span class="st">&quot;score&quot;</span>)</span>
+<span id="cb64-14"><a href="exploratory-analysis-in-r.html#cb64-14" aria-hidden="true" tabindex="-1"></a>know_assocs_df<span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(raw_know, r_know, py_know, <span class="at">.id =</span> <span class="st">&quot;corpus&quot;</span>)</span>
+<span id="cb64-15"><a href="exploratory-analysis-in-r.html#cb64-15" aria-hidden="true" tabindex="-1"></a><span class="co">#record association</span></span>
+<span id="cb64-16"><a href="exploratory-analysis-in-r.html#cb64-16" aria-hidden="true" tabindex="-1"></a>raw_record<span class="ot">&lt;-</span> <span class="fu">findAssocs</span>(raw_dtm, <span class="st">&quot;record&quot;</span>, <span class="fl">0.4</span>); raw_record<span class="ot">&lt;-</span> <span class="fu">list_vect2df</span>(raw_record, <span class="at">col1 =</span> <span class="st">&quot;term&quot;</span>, <span class="at">col2 =</span> <span class="st">&quot;association&quot;</span>, <span class="at">col3 =</span> <span class="st">&quot;score&quot;</span>); r_record<span class="ot">&lt;-</span> <span class="fu">findAssocs</span>(r_dtm, <span class="st">&quot;record&quot;</span>, <span class="fl">0.4</span>); r_record<span class="ot">&lt;-</span> <span class="fu">list_vect2df</span>(r_record, <span class="at">col1 =</span> <span class="st">&quot;term&quot;</span>, <span class="at">col2 =</span> <span class="st">&quot;association&quot;</span>, <span class="at">col3 =</span> <span class="st">&quot;score&quot;</span>); py_record<span class="ot">&lt;-</span> <span class="fu">findAssocs</span>(py_dtm, <span class="st">&quot;record&quot;</span>, <span class="fl">0.4</span>); py_record<span class="ot">&lt;-</span> <span class="fu">list_vect2df</span>(py_record, <span class="at">col1 =</span> <span class="st">&quot;term&quot;</span>, <span class="at">col2 =</span> <span class="st">&quot;association&quot;</span>, <span class="at">col3 =</span> <span class="st">&quot;score&quot;</span>)</span>
+<span id="cb64-17"><a href="exploratory-analysis-in-r.html#cb64-17" aria-hidden="true" tabindex="-1"></a>record_assocs_df<span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(raw_record, r_record, py_record, <span class="at">.id =</span> <span class="st">&quot;corpus&quot;</span>)</span>
+<span id="cb64-18"><a href="exploratory-analysis-in-r.html#cb64-18" aria-hidden="true" tabindex="-1"></a><span class="co">#sound association</span></span>
+<span id="cb64-19"><a href="exploratory-analysis-in-r.html#cb64-19" aria-hidden="true" tabindex="-1"></a>raw_sound<span class="ot">&lt;-</span> <span class="fu">findAssocs</span>(raw_dtm, <span class="st">&quot;sound&quot;</span>, <span class="fl">0.3</span>); raw_sound<span class="ot">&lt;-</span> <span class="fu">list_vect2df</span>(raw_sound, <span class="at">col1 =</span> <span class="st">&quot;term&quot;</span>, <span class="at">col2 =</span> <span class="st">&quot;association&quot;</span>, <span class="at">col3 =</span> <span class="st">&quot;score&quot;</span>); r_sound<span class="ot">&lt;-</span> <span class="fu">findAssocs</span>(r_dtm, <span class="st">&quot;sound&quot;</span>, <span class="fl">0.3</span>); r_sound<span class="ot">&lt;-</span> <span class="fu">list_vect2df</span>(r_sound, <span class="at">col1 =</span> <span class="st">&quot;term&quot;</span>, <span class="at">col2 =</span> <span class="st">&quot;association&quot;</span>, <span class="at">col3 =</span> <span class="st">&quot;score&quot;</span>); py_sound<span class="ot">&lt;-</span> <span class="fu">findAssocs</span>(py_dtm, <span class="st">&quot;sound&quot;</span>, <span class="fl">0.3</span>); py_sound<span class="ot">&lt;-</span> <span class="fu">list_vect2df</span>(py_sound, <span class="at">col1 =</span> <span class="st">&quot;term&quot;</span>, <span class="at">col2 =</span> <span class="st">&quot;association&quot;</span>, <span class="at">col3 =</span> <span class="st">&quot;score&quot;</span>)</span>
+<span id="cb64-20"><a href="exploratory-analysis-in-r.html#cb64-20" aria-hidden="true" tabindex="-1"></a>sound_assocs_df<span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(raw_sound, r_sound, py_sound, <span class="at">.id =</span> <span class="st">&quot;corpus&quot;</span>)</span>
+<span id="cb64-21"><a href="exploratory-analysis-in-r.html#cb64-21" aria-hidden="true" tabindex="-1"></a><span class="co">#time association</span></span>
+<span id="cb64-22"><a href="exploratory-analysis-in-r.html#cb64-22" aria-hidden="true" tabindex="-1"></a>raw_time<span class="ot">&lt;-</span> <span class="fu">findAssocs</span>(raw_dtm, <span class="st">&quot;time&quot;</span>, <span class="fl">0.5</span>); raw_time<span class="ot">&lt;-</span> <span class="fu">list_vect2df</span>(raw_time, <span class="at">col1 =</span> <span class="st">&quot;term&quot;</span>, <span class="at">col2 =</span> <span class="st">&quot;association&quot;</span>, <span class="at">col3 =</span> <span class="st">&quot;score&quot;</span>); r_time<span class="ot">&lt;-</span> <span class="fu">findAssocs</span>(r_dtm, <span class="st">&quot;time&quot;</span>, <span class="fl">0.5</span>); r_time<span class="ot">&lt;-</span> <span class="fu">list_vect2df</span>(r_time, <span class="at">col1 =</span> <span class="st">&quot;term&quot;</span>, <span class="at">col2 =</span> <span class="st">&quot;association&quot;</span>, <span class="at">col3 =</span> <span class="st">&quot;score&quot;</span>); py_time<span class="ot">&lt;-</span> <span class="fu">findAssocs</span>(py_dtm, <span class="st">&quot;time&quot;</span>, <span class="fl">0.5</span>); py_time<span class="ot">&lt;-</span> <span class="fu">list_vect2df</span>(py_time, <span class="at">col1 =</span> <span class="st">&quot;term&quot;</span>, <span class="at">col2 =</span> <span class="st">&quot;association&quot;</span>, <span class="at">col3 =</span> <span class="st">&quot;score&quot;</span>)</span>
+<span id="cb64-23"><a href="exploratory-analysis-in-r.html#cb64-23" aria-hidden="true" tabindex="-1"></a>time_assocs_df<span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(raw_time, r_time, py_time, <span class="at">.id =</span> <span class="st">&quot;corpus&quot;</span>)</span>
+<span id="cb64-24"><a href="exploratory-analysis-in-r.html#cb64-24" aria-hidden="true" tabindex="-1"></a><span class="co">#song association</span></span>
+<span id="cb64-25"><a href="exploratory-analysis-in-r.html#cb64-25" aria-hidden="true" tabindex="-1"></a>raw_song<span class="ot">&lt;-</span> <span class="fu">findAssocs</span>(raw_dtm, <span class="st">&quot;song&quot;</span>, <span class="fl">0.4</span>); raw_song<span class="ot">&lt;-</span> <span class="fu">list_vect2df</span>(raw_song, <span class="at">col1 =</span> <span class="st">&quot;term&quot;</span>, <span class="at">col2 =</span> <span class="st">&quot;association&quot;</span>, <span class="at">col3 =</span> <span class="st">&quot;score&quot;</span>); r_song<span class="ot">&lt;-</span> <span class="fu">findAssocs</span>(r_dtm, <span class="st">&quot;song&quot;</span>, <span class="fl">0.4</span>); r_song<span class="ot">&lt;-</span> <span class="fu">list_vect2df</span>(r_song, <span class="at">col1 =</span> <span class="st">&quot;term&quot;</span>, <span class="at">col2 =</span> <span class="st">&quot;association&quot;</span>, <span class="at">col3 =</span> <span class="st">&quot;score&quot;</span>); py_song<span class="ot">&lt;-</span> <span class="fu">findAssocs</span>(py_dtm, <span class="st">&quot;song&quot;</span>, <span class="fl">0.4</span>); py_song<span class="ot">&lt;-</span> <span class="fu">list_vect2df</span>(py_song, <span class="at">col1 =</span> <span class="st">&quot;term&quot;</span>, <span class="at">col2 =</span> <span class="st">&quot;association&quot;</span>, <span class="at">col3 =</span> <span class="st">&quot;score&quot;</span>)</span>
+<span id="cb64-26"><a href="exploratory-analysis-in-r.html#cb64-26" aria-hidden="true" tabindex="-1"></a>song_assocs_df<span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(raw_song, r_song, py_song, <span class="at">.id =</span> <span class="st">&quot;corpus&quot;</span>)</span>
+<span id="cb64-27"><a href="exploratory-analysis-in-r.html#cb64-27" aria-hidden="true" tabindex="-1"></a><span class="co">#listen association</span></span>
+<span id="cb64-28"><a href="exploratory-analysis-in-r.html#cb64-28" aria-hidden="true" tabindex="-1"></a>raw_listen<span class="ot">&lt;-</span> <span class="fu">findAssocs</span>(raw_dtm, <span class="st">&quot;listen&quot;</span>, <span class="fl">0.3</span>); raw_listen<span class="ot">&lt;-</span> <span class="fu">list_vect2df</span>(raw_listen, <span class="at">col1 =</span> <span class="st">&quot;term&quot;</span>, <span class="at">col2 =</span> <span class="st">&quot;association&quot;</span>, <span class="at">col3 =</span> <span class="st">&quot;score&quot;</span>); r_listen<span class="ot">&lt;-</span> <span class="fu">findAssocs</span>(r_dtm, <span class="st">&quot;listen&quot;</span>, <span class="fl">0.3</span>); r_listen<span class="ot">&lt;-</span> <span class="fu">list_vect2df</span>(r_listen, <span class="at">col1 =</span> <span class="st">&quot;term&quot;</span>, <span class="at">col2 =</span> <span class="st">&quot;association&quot;</span>, <span class="at">col3 =</span> <span class="st">&quot;score&quot;</span>); py_listen<span class="ot">&lt;-</span> <span class="fu">findAssocs</span>(py_dtm, <span class="st">&quot;listen&quot;</span>, <span class="fl">0.3</span>); py_listen<span class="ot">&lt;-</span> <span class="fu">list_vect2df</span>(py_listen, <span class="at">col1 =</span> <span class="st">&quot;term&quot;</span>, <span class="at">col2 =</span> <span class="st">&quot;association&quot;</span>, <span class="at">col3 =</span> <span class="st">&quot;score&quot;</span>)</span>
+<span id="cb64-29"><a href="exploratory-analysis-in-r.html#cb64-29" aria-hidden="true" tabindex="-1"></a>listen_assocs_df<span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(raw_listen, r_listen, py_listen, <span class="at">.id =</span> <span class="st">&quot;corpus&quot;</span>)</span>
+<span id="cb64-30"><a href="exploratory-analysis-in-r.html#cb64-30" aria-hidden="true" tabindex="-1"></a><span class="co">#track association</span></span>
+<span id="cb64-31"><a href="exploratory-analysis-in-r.html#cb64-31" aria-hidden="true" tabindex="-1"></a>raw_track<span class="ot">&lt;-</span> <span class="fu">findAssocs</span>(raw_dtm, <span class="st">&quot;track&quot;</span>, <span class="fl">0.2</span>); raw_track<span class="ot">&lt;-</span> <span class="fu">list_vect2df</span>(raw_track, <span class="at">col1 =</span> <span class="st">&quot;term&quot;</span>, <span class="at">col2 =</span> <span class="st">&quot;association&quot;</span>, <span class="at">col3 =</span> <span class="st">&quot;score&quot;</span>); r_track<span class="ot">&lt;-</span> <span class="fu">findAssocs</span>(r_dtm, <span class="st">&quot;track&quot;</span>, <span class="fl">0.2</span>); r_track<span class="ot">&lt;-</span> <span class="fu">list_vect2df</span>(r_track, <span class="at">col1 =</span> <span class="st">&quot;term&quot;</span>, <span class="at">col2 =</span> <span class="st">&quot;association&quot;</span>, <span class="at">col3 =</span> <span class="st">&quot;score&quot;</span>); py_track<span class="ot">&lt;-</span> <span class="fu">findAssocs</span>(py_dtm, <span class="st">&quot;track&quot;</span>, <span class="fl">0.2</span>); py_track<span class="ot">&lt;-</span> <span class="fu">list_vect2df</span>(py_track, <span class="at">col1 =</span> <span class="st">&quot;term&quot;</span>, <span class="at">col2 =</span> <span class="st">&quot;association&quot;</span>, <span class="at">col3 =</span> <span class="st">&quot;score&quot;</span>)</span>
+<span id="cb64-32"><a href="exploratory-analysis-in-r.html#cb64-32" aria-hidden="true" tabindex="-1"></a>track_assocs_df<span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(raw_track, r_track, py_track, <span class="at">.id =</span> <span class="st">&quot;corpus&quot;</span>)</span>
+<span id="cb64-33"><a href="exploratory-analysis-in-r.html#cb64-33" aria-hidden="true" tabindex="-1"></a>assocs_df<span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(music_assocs_df, track_assocs_df, listen_assocs_df, song_assocs_df, time_assocs_df, sound_assocs_df, record_assocs_df, know_assocs_df, people_assocs_df, think_assocs_df)</span>
+<span id="cb64-34"><a href="exploratory-analysis-in-r.html#cb64-34" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(assocs_df, <span class="dv">10</span>)</span></code></pre></div>
+<pre><code>##    corpus  term association score
+## 1       1 music         way  0.30
+## 2       1 music         and  0.31
+## 3       1 music       think  0.31
+## 4       1 music        when  0.31
+## 5       1 music       which  0.31
+## 6       1 music        with  0.31
+## 7       1 music        also  0.32
+## 8       1 music       other  0.32
+## 9       1 music        that  0.32
+## 10      1 music         the  0.32</code></pre>
+<p><em>(Due to how Bookdown renders R notebooks I’m only displaying the heads of long dataframes and tables but the analysis refers to the entire data)</em></p>
+<p>Looking at these results, we see some expected combinations for the corpus’ central thematic term of “music”: “dance music,” “find music,” “world music,” “making/make music,” “interest(ing) music/interest(ed in) music,” “music culture,” “listen(ing to) music,” “music influence,” and “play music.”</p>
+<p>Co-occurences for “record” and “sound” primarily reflect their usage as a noun or adjective rather than a verb: “make/buy/want (a) record,” “different sound,” “hit record,” “sound system,” “change (a/the) sound,” “sound effect,” “use sound,” “record(ing) studio.”</p>
+<p>Both “think” and “people” returned some obvious results such as “people make/think” though the more interesting associations were with verbs such as “feel,” “want,” “try,” “see,” and “talk” which are all relevant to the creative process.</p>
+<p>The results for “know,” “listen” and “time” were the least revealing and I’d argue these terms have more potential in the results for our other terms, such as “listen (to a) record/music.”</p>
+<p>Lastly, “song” and “track” have a degree of interchangeability in everyday usage within music discourse and some of this is reflected in the results. “Take,” “put,” “hear,” “make,” “good,” “big,” “studio,” and “producer” appear as co-occurences for both terms. The differences between co-occurences for the two terms are equally interesting with “mix,” “dance,” and “vocal” appearing only with “track” while “beat,” “crazy,” and “love” appear only with “song.” In both cases some of these can feel a little counter-intuitive: one might expect “beat” to be more easily associated with “track” or “vocal” with “song.”</p>
+<p>Seeing as these two terms appeared to have the most interplay, I decided to visualize their shared correlations in the cleaned versions via a plot, which shows “good”, “big”, and “start” as the co-occurences with the closest correlation threshold between both terms.<a href="#fn13" class="footnote-ref" id="fnref13"><sup>13</sup></a></p>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="exploratory-analysis-in-r.html#cb66-1" aria-hidden="true" tabindex="-1"></a>corr1<span class="ot">&lt;-</span> <span class="fu">findAssocs</span>(r_dtm, <span class="st">&quot;song&quot;</span>, <span class="fl">0.3</span>)[[<span class="dv">1</span>]]; corr2<span class="ot">&lt;-</span> <span class="fu">findAssocs</span>(r_dtm, <span class="st">&quot;track&quot;</span>, <span class="fl">0.2</span>)[[<span class="dv">1</span>]]</span>
+<span id="cb66-2"><a href="exploratory-analysis-in-r.html#cb66-2" aria-hidden="true" tabindex="-1"></a>corr1<span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="fu">read.table</span>(<span class="at">text =</span> <span class="fu">names</span>(corr1), <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>), corr1); corr2 <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="fu">read.table</span>(<span class="at">text =</span> <span class="fu">names</span>(corr2), <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>), corr2)</span>
+<span id="cb66-3"><a href="exploratory-analysis-in-r.html#cb66-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb66-4"><a href="exploratory-analysis-in-r.html#cb66-4" aria-hidden="true" tabindex="-1"></a><span class="co">#join and arrange the two correlation results</span></span>
+<span id="cb66-5"><a href="exploratory-analysis-in-r.html#cb66-5" aria-hidden="true" tabindex="-1"></a>two_terms_corrs <span class="ot">&lt;-</span> <span class="fu">full_join</span>(corr1, corr2)</span>
+<span id="cb66-6"><a href="exploratory-analysis-in-r.html#cb66-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb66-7"><a href="exploratory-analysis-in-r.html#cb66-7" aria-hidden="true" tabindex="-1"></a>two_terms_corrs_gathered <span class="ot">&lt;-</span> <span class="fu">gather</span>(two_terms_corrs, term, correlation, corr1<span class="sc">:</span>corr2)</span>
+<span id="cb66-8"><a href="exploratory-analysis-in-r.html#cb66-8" aria-hidden="true" tabindex="-1"></a>two_terms_corrs_gathered<span class="sc">$</span>term <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(two_terms_corrs_gathered<span class="sc">$</span>term  <span class="sc">==</span> <span class="st">&quot;corr1&quot;</span>, <span class="st">&quot;song&quot;</span>, <span class="st">&quot;track&quot;</span>)</span>
+<span id="cb66-9"><a href="exploratory-analysis-in-r.html#cb66-9" aria-hidden="true" tabindex="-1"></a><span class="co">#create a version with only joint correlations</span></span>
+<span id="cb66-10"><a href="exploratory-analysis-in-r.html#cb66-10" aria-hidden="true" tabindex="-1"></a>two_terms_corrs_gathered_trim<span class="ot">&lt;-</span> two_terms_corrs_gathered[<span class="fu">c</span>(<span class="dv">58</span>, <span class="dv">163</span>, <span class="dv">61</span>, <span class="dv">166</span>, <span class="dv">21</span>, <span class="dv">126</span>, <span class="dv">22</span>, <span class="dv">127</span>, <span class="dv">31</span>, <span class="dv">136</span>, <span class="dv">16</span>, <span class="dv">121</span>, <span class="dv">47</span>, <span class="dv">152</span>, <span class="dv">32</span>, <span class="dv">137</span>, <span class="dv">13</span>, <span class="dv">118</span>, <span class="dv">14</span>, <span class="dv">119</span>, <span class="dv">57</span>, <span class="dv">162</span>),]</span>
+<span id="cb66-11"><a href="exploratory-analysis-in-r.html#cb66-11" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(ggplot2)</span>
+<span id="cb66-12"><a href="exploratory-analysis-in-r.html#cb66-12" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(two_terms_corrs_gathered_trim, <span class="fu">aes</span>(<span class="at">x =</span> V1, <span class="at">y =</span> correlation, <span class="at">colour =</span>  term ) ) <span class="sc">+</span></span>
+<span id="cb66-13"><a href="exploratory-analysis-in-r.html#cb66-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb66-14"><a href="exploratory-analysis-in-r.html#cb66-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Terms&quot;</span>) <span class="sc">+</span></span>
+<span id="cb66-15"><a href="exploratory-analysis-in-r.html#cb66-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="fu">paste0</span>(<span class="st">&quot;Correlation with the terms &quot;</span>, <span class="st">&quot;</span><span class="sc">\&quot;</span><span class="st">&quot;</span>, <span class="st">&quot;song&quot;</span>,  <span class="st">&quot;</span><span class="sc">\&quot;</span><span class="st">&quot;</span>, <span class="st">&quot; and &quot;</span>,  <span class="st">&quot;</span><span class="sc">\&quot;</span><span class="st">&quot;</span>, <span class="st">&quot;track&quot;</span>, <span class="st">&quot;</span><span class="sc">\&quot;</span><span class="st">&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb66-16"><a href="exploratory-analysis-in-r.html#cb66-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb66-17"><a href="exploratory-analysis-in-r.html#cb66-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">hjust =</span> <span class="dv">1</span>, <span class="at">vjust =</span> <span class="fl">0.5</span>))</span></code></pre></div>
+<p><img src="_main_files/figure-html/Two%20Term%20Correlation-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Next I used another tm method, findMostFreqTerms, which returns a list of lists of the most frequent terms for each document in the corpus. I set the limit to 5 and then bound these lists into a single data frame showing each list as a row for easy analysis. Below we can see the top 5 and bottom 5 results for the R version of the corpus.</p>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="exploratory-analysis-in-r.html#cb67-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">=</span> <span class="dv">5</span></span>
+<span id="cb67-2"><a href="exploratory-analysis-in-r.html#cb67-2" aria-hidden="true" tabindex="-1"></a>r_most_freq<span class="ot">&lt;-</span> <span class="fu">findMostFreqTerms</span>(r_dtm, <span class="at">n =</span> n)</span>
+<span id="cb67-3"><a href="exploratory-analysis-in-r.html#cb67-3" aria-hidden="true" tabindex="-1"></a>r_most_freq<span class="ot">&lt;-</span> <span class="fu">do.call</span>(rbind, <span class="fu">lapply</span>(r_most_freq, <span class="cf">function</span>(x) { x <span class="ot">&lt;-</span> <span class="fu">names</span>(x);<span class="fu">length</span>(x)<span class="ot">&lt;-</span>n;x }))</span>
+<span id="cb67-4"><a href="exploratory-analysis-in-r.html#cb67-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(r_most_freq)</span></code></pre></div>
+<pre><code>##                         [,1]       [,2]       [,3]     [,4]     [,5]    
+## a-guy-called-gerald.txt &quot;actually&quot; &quot;call&quot;     &quot;guy&quot;    &quot;people&quot; &quot;time&quot;  
+## addison-groove.txt      &quot;play&quot;     &quot;make&quot;     &quot;music&quot;  &quot;track&quot;  &quot;people&quot;
+## aisha-devi.txt          &quot;music&quot;    &quot;actually&quot; &quot;voice&quot;  &quot;will&quot;   &quot;think&quot; 
+## alec-empire.txt         &quot;people&quot;   &quot;think&quot;    &quot;music&quot;  &quot;time&quot;   &quot;maybe&quot; 
+## alex-barck.txt          &quot;music&quot;    &quot;record&quot;   &quot;people&quot; &quot;think&quot;  &quot;play&quot;  
+## alex-rosner.txt         &quot;sound&quot;    &quot;room&quot;     &quot;good&quot;   &quot;make&quot;   &quot;put&quot;</code></pre>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="exploratory-analysis-in-r.html#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(r_most_freq)</span></code></pre></div>
+<pre><code>##                     [,1]     [,2]     [,3]     [,4]     [,5]   
+## wu-tang-clan.txt    &quot;shit&quot;   &quot;come&quot;   &quot;time&quot;   &quot;say&quot;    &quot;right&quot;
+## xavier-veilhan.txt  &quot;work&quot;   &quot;music&quot;  &quot;art&quot;    &quot;people&quot; &quot;time&quot; 
+## yoshimio.txt        &quot;play&quot;   &quot;right&quot;  &quot;think&quot;  &quot;record&quot; &quot;music&quot;
+## young-guru.txt      &quot;record&quot; &quot;people&quot; &quot;music&quot;  &quot;make&quot;   &quot;come&quot; 
+## yury-chernavsky.txt &quot;play&quot;   &quot;music&quot;  &quot;people&quot; &quot;yes&quot;    &quot;first&quot;
+## yuzo-koshiro.txt    &quot;music&quot;  &quot;time&quot;   &quot;make&quot;   &quot;video&quot;  &quot;use&quot;</code></pre>
+<p>A look at these results shows many of the corpus’ most frequent terms I’ve already highlighted alongside some keywords that are more specific to each document: Yuzo Koshiro’s lecture features the term “video” no doubt in relation to his work in video games; the Wu-Tang Clan likes to swear and confirm each other’s statements; Xavier Veilhan, one of the few non-musicians in the corpus, talks about “art” rather than “music”; and renowned sound system engineer Alex Rosner focused his talk on the importance of sound to physical spaces which seems clearly represented by his top 5 most frequent terms.</p>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="exploratory-analysis-in-r.html#cb71-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">=</span> <span class="dv">5</span></span>
+<span id="cb71-2"><a href="exploratory-analysis-in-r.html#cb71-2" aria-hidden="true" tabindex="-1"></a>py_most_freq<span class="ot">&lt;-</span> <span class="fu">findMostFreqTerms</span>(py_dtm, <span class="at">n =</span> n)</span>
+<span id="cb71-3"><a href="exploratory-analysis-in-r.html#cb71-3" aria-hidden="true" tabindex="-1"></a>py_most_freq<span class="ot">&lt;-</span> <span class="fu">do.call</span>(rbind, <span class="fu">lapply</span>(py_most_freq, <span class="cf">function</span>(x) { x <span class="ot">&lt;-</span> <span class="fu">names</span>(x);<span class="fu">length</span>(x)<span class="ot">&lt;-</span>n;x }))</span>
+<span id="cb71-4"><a href="exploratory-analysis-in-r.html#cb71-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(py_most_freq)</span></code></pre></div>
+<pre><code>##                         [,1]    [,2]       [,3]     [,4]     [,5]    
+## a-guy-called-gerald.txt &quot;like&quot;  &quot;actually&quot; &quot;get&quot;    &quot;would&quot;  &quot;thing&quot; 
+## addison-groove.txt      &quot;make&quot;  &quot;music&quot;    &quot;track&quot;  &quot;like&quot;   &quot;get&quot;   
+## aisha-devi.txt          &quot;music&quot; &quot;actually&quot; &quot;like&quot;   &quot;voice&quot;  &quot;think&quot; 
+## alec-empire.txt         &quot;like&quot;  &quot;people&quot;   &quot;think&quot;  &quot;music&quot;  &quot;stuff&quot; 
+## alex-barck.txt          &quot;music&quot; &quot;like&quot;     &quot;record&quot; &quot;people&quot; &quot;really&quot;
+## alex-rosner.txt         &quot;sound&quot; &quot;room&quot;     &quot;get&quot;    &quot;put&quot;    &quot;make&quot;</code></pre>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="exploratory-analysis-in-r.html#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(py_most_freq)</span></code></pre></div>
+<pre><code>##                     [,1]    [,2]     [,3]    [,4]     [,5]    
+## wu-tang-clan.txt    &quot;like&quot;  &quot;get&quot;    &quot;shit&quot;  &quot;know&quot;   &quot;come&quot;  
+## xavier-veilhan.txt  &quot;work&quot;  &quot;music&quot;  &quot;like&quot;  &quot;art&quot;    &quot;thing&quot; 
+## yoshimio.txt        &quot;like&quot;  &quot;really&quot; &quot;play&quot;  &quot;right&quot;  &quot;record&quot;
+## young-guru.txt      &quot;like&quot;  &quot;get&quot;    &quot;thing&quot; &quot;record&quot; &quot;people&quot;
+## yury-chernavsky.txt &quot;music&quot; &quot;like&quot;   &quot;well&quot;  &quot;people&quot; &quot;yes&quot;   
+## yuzo-koshiro.txt    &quot;music&quot; &quot;game&quot;   &quot;time&quot;  &quot;like&quot;   &quot;make&quot;</code></pre>
+<p>As expected the Python version has a little more noise from not having the custom stopwords removed though we can also see a similar pattern with one or two lecture-specific keyword popping up in the top 5.</p>
+<hr />
+</div>
+<div id="term-frequency-vs-inverse-document-frequency" class="section level2" number="5.2">
+<h2><span class="header-section-number">5.2</span> Term Frequency vs Inverse Document Frequency</h2>
+<p>So far all the operations were conducted with DTMs created using term frequency as the weighting option, meaning that a word’s rank was based on its frequency across all documents: every time the word appears it gets a count and thus increases in rank. However, term frequency does not equate relevance as shown by the most frequent list of the raw corpus in <a href="exploratory-analysis-in-python.html#most-common-words">4.3</a>. While term frequency is clearly useful to bring the main themes of a corpus to the fore as we’ve seen it does not necessarily tell us anything about their importance. I know music is central to this corpus, but I also know that music is a broad umbrella and that different types of musicians and practices are represented in the corpus.</p>
+<p>To try and get at this I decided to look at the DTMs using the Inverse Document Frequency approach (tf-idf) whereby words are weighted based on term frequency as well as relative importance to a document. The expectation then is that the results will now show lists of terms that are more specific to each documents as well as bring forward sub-themes across the corpus rather than the overall themes we’ve already seen.</p>
+<p>First I set the DTMs to variables and sparsed them as I’d done with the term frequency versions.</p>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="exploratory-analysis-in-r.html#cb75-1" aria-hidden="true" tabindex="-1"></a>raw_dtm_idf<span class="ot">&lt;-</span> <span class="fu">DocumentTermMatrix</span>(raw_corpus, <span class="at">control =</span> <span class="fu">list</span>(<span class="at">weighting =</span> weightTfIdf)); r_dtm_idf<span class="ot">&lt;-</span> <span class="fu">DocumentTermMatrix</span>(r_corpus, <span class="at">control =</span> <span class="fu">list</span>(<span class="at">weighting =</span> weightTfIdf)); py_dtm_idf<span class="ot">&lt;-</span> <span class="fu">DocumentTermMatrix</span>(py_corpus, <span class="at">control =</span> <span class="fu">list</span>(<span class="at">weighting =</span> weightTfIdf))</span>
+<span id="cb75-2"><a href="exploratory-analysis-in-r.html#cb75-2" aria-hidden="true" tabindex="-1"></a>raw_dtm_idf<span class="ot">&lt;-</span> <span class="fu">removeSparseTerms</span>(raw_dtm_idf, <span class="fl">0.5</span>); r_dtm_idf<span class="ot">&lt;-</span> <span class="fu">removeSparseTerms</span>(r_dtm_idf, <span class="fl">0.5</span>); py_dtm_idf<span class="ot">&lt;-</span> <span class="fu">removeSparseTerms</span>(py_dtm_idf, <span class="fl">0.5</span>)</span>
+<span id="cb75-3"><a href="exploratory-analysis-in-r.html#cb75-3" aria-hidden="true" tabindex="-1"></a>raw_dtm_idf; r_dtm_idf; py_dtm_idf</span></code></pre></div>
+<pre><code>## &lt;&lt;DocumentTermMatrix (documents: 468, terms: 750)&gt;&gt;
+## Non-/sparse entries: 260745/90255
+## Sparsity           : 26%
+## Maximal term length: 11
+## Weighting          : term frequency - inverse document frequency (normalized) (tf-idf)</code></pre>
+<pre><code>## &lt;&lt;DocumentTermMatrix (documents: 468, terms: 482)&gt;&gt;
+## Non-/sparse entries: 167373/58203
+## Sparsity           : 26%
+## Maximal term length: 12
+## Weighting          : term frequency - inverse document frequency (normalized) (tf-idf)</code></pre>
+<pre><code>## &lt;&lt;DocumentTermMatrix (documents: 468, terms: 493)&gt;&gt;
+## Non-/sparse entries: 171631/59093
+## Sparsity           : 26%
+## Maximal term length: 12
+## Weighting          : term frequency - inverse document frequency (normalized) (tf-idf)</code></pre>
+<p>Next I look at the top terms in each new DTM.</p>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="exploratory-analysis-in-r.html#cb79-1" aria-hidden="true" tabindex="-1"></a>raw_idf_head<span class="ot">&lt;-</span> <span class="fu">head</span>(<span class="fu">data.frame</span>(<span class="fu">sort</span>(<span class="fu">colSums</span>(<span class="fu">as.matrix</span>(raw_dtm_idf)), <span class="at">decreasing=</span><span class="cn">TRUE</span>)), <span class="dv">10</span>); <span class="fu">colnames</span>(raw_idf_head)[<span class="dv">1</span>]<span class="ot">&lt;-</span> <span class="st">&quot;frequency&quot;</span></span>
+<span id="cb79-2"><a href="exploratory-analysis-in-r.html#cb79-2" aria-hidden="true" tabindex="-1"></a>r_idf_head<span class="ot">&lt;-</span> <span class="fu">head</span>(<span class="fu">data.frame</span>(<span class="fu">sort</span>(<span class="fu">colSums</span>(<span class="fu">as.matrix</span>(r_dtm_idf)), <span class="at">decreasing=</span><span class="cn">TRUE</span>)), <span class="dv">10</span>); <span class="fu">colnames</span>(r_idf_head)[<span class="dv">1</span>]<span class="ot">&lt;-</span> <span class="st">&quot;frequency&quot;</span></span>
+<span id="cb79-3"><a href="exploratory-analysis-in-r.html#cb79-3" aria-hidden="true" tabindex="-1"></a>py_idf_head<span class="ot">&lt;-</span> <span class="fu">head</span>(<span class="fu">data.frame</span>(<span class="fu">sort</span>(<span class="fu">colSums</span>(<span class="fu">as.matrix</span>(py_dtm_idf)), <span class="at">decreasing=</span><span class="cn">TRUE</span>)), <span class="dv">10</span>); <span class="fu">colnames</span>(py_idf_head)[<span class="dv">1</span>]<span class="ot">&lt;-</span> <span class="st">&quot;frequency&quot;</span></span>
+<span id="cb79-4"><a href="exploratory-analysis-in-r.html#cb79-4" aria-hidden="true" tabindex="-1"></a>raw_idf_head; r_idf_head; py_idf_head</span></code></pre></div>
+<pre><code>##            frequency
+## gonna      0.1709571
+## hip-hop    0.1502452
+## black      0.1406327
+## she        0.1355853
+## jazz       0.1327173
+## drum       0.1318957
+## electronic 0.1309645
+## yeah.      0.1299675
+## song       0.1274526
+## [laughs]   0.1249164</code></pre>
+<pre><code>##        frequency
+## shit   0.4548952
+## hiphop 0.3880062
+## remix  0.3873030
+## band   0.3457131
+## master 0.3359250
+## song   0.3236251
+## london 0.3177508
+## tune   0.3163744
+## sing   0.3117608
+## video  0.3096802</code></pre>
+<pre><code>##          frequency
+## shit     0.3948568
+## gonna    0.3287453
+## band     0.3141501
+## hip      0.3060792
+## master   0.2910337
+## tune     0.2798423
+## jazz     0.2793999
+## laughter 0.2784546
+## london   0.2778346
+## video    0.2733863</code></pre>
+<p>As expected we can now see a different set of terms, with some of the sub-themes I’d hoped to see: “hip-hop,” “jazz,” and “electronic” are potentially important genres, which I know to be the case based on my knowledge of the corpus and something that could be worth investigating further by adding metadata information to the documents about the primary genres each lecture features; “remix” and “master” are two creative practices that show up likely due to the fact there is at least one lecture with a mastering engineer every year and because both remixes and mastering are part and parcel of how many DJs and producers work; “song,” and its alternative “tune” (in Python), is the only term to still appear from the ten I’d selected as central to the themes based on the most common words; “shit” appears to be the preferred swear word; and “London” might be an important city to our corpus.</p>
+<p>Next I looked at the most frequent terms for each document again, comparing tf and tf-idf. The tf version of the raw corpus tells us nothing meaningful, as expected, however the tf-idf version helps cut through some of the noise to bring themes for each document to the fore. Overall the results for the raw version remain noisy.</p>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="exploratory-analysis-in-r.html#cb83-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">=</span> <span class="dv">5</span></span>
+<span id="cb83-2"><a href="exploratory-analysis-in-r.html#cb83-2" aria-hidden="true" tabindex="-1"></a>raw_most_freq_idf<span class="ot">&lt;-</span> <span class="fu">findMostFreqTerms</span>(raw_dtm_idf, <span class="at">n =</span> n)</span>
+<span id="cb83-3"><a href="exploratory-analysis-in-r.html#cb83-3" aria-hidden="true" tabindex="-1"></a>raw_most_freq_idf<span class="ot">&lt;-</span> <span class="fu">do.call</span>(rbind, <span class="fu">lapply</span>(raw_most_freq_idf, <span class="cf">function</span>(x) { x <span class="ot">&lt;-</span> <span class="fu">names</span>(x);<span class="fu">length</span>(x)<span class="ot">&lt;-</span>n;x }))</span>
+<span id="cb83-4"><a href="exploratory-analysis-in-r.html#cb83-4" aria-hidden="true" tabindex="-1"></a>raw_most_freq<span class="ot">&lt;-</span> <span class="fu">findMostFreqTerms</span>(raw_dtm, <span class="at">n =</span> n)</span>
+<span id="cb83-5"><a href="exploratory-analysis-in-r.html#cb83-5" aria-hidden="true" tabindex="-1"></a>raw_most_freq<span class="ot">&lt;-</span> <span class="fu">do.call</span>(rbind, <span class="fu">lapply</span>(raw_most_freq, <span class="cf">function</span>(x) { x <span class="ot">&lt;-</span> <span class="fu">names</span>(x);<span class="fu">length</span>(x)<span class="ot">&lt;-</span>n;x }))</span>
+<span id="cb83-6"><a href="exploratory-analysis-in-r.html#cb83-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(raw_most_freq_idf)</span></code></pre></div>
+<pre><code>##                         [,1]      [,2]      [,3]         [,4]        [,5]    
+## a-guy-called-gerald.txt &quot;anyway,&quot; &quot;guy&quot;     &quot;basically,&quot; &quot;basically&quot; &quot;you’d&quot; 
+## addison-groove.txt      &quot;gonna&quot;   &quot;drum&quot;    &quot;track&quot;      &quot;track.&quot;    &quot;track,&quot;
+## aisha-devi.txt          &quot;voice&quot;   &quot;space&quot;   &quot;pop&quot;        &quot;produce&quot;   &quot;course&quot;
+## alec-empire.txt         &quot;“ok,&quot;    &quot;go,&quot;     &quot;example,&quot;   &quot;felt&quot;      &quot;“this&quot; 
+## alex-barck.txt          &quot;jazz&quot;    &quot;hip-hop&quot; &quot;less&quot;       &quot;label&quot;     &quot;label,&quot;
+## alex-rosner.txt         &quot;bass&quot;    &quot;room&quot;    &quot;high&quot;       &quot;eight&quot;     &quot;middle&quot;</code></pre>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="exploratory-analysis-in-r.html#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(raw_most_freq_idf)</span></code></pre></div>
+<pre><code>##                     [,1]      [,2]        [,3]         [,4]     [,5]       
+## wu-tang-clan.txt    &quot;gonna&quot;   &quot;felt&quot;      &quot;style&quot;      &quot;like,&quot;  &quot;lost&quot;     
+## xavier-veilhan.txt  &quot;art&quot;     &quot;she&quot;       &quot;interested&quot; &quot;rather&quot; &quot;her&quot;      
+## yoshimio.txt        &quot;free&quot;    &quot;recording&quot; &quot;drums&quot;      &quot;right?&quot; &quot;applause)&quot;
+## young-guru.txt      &quot;gonna&quot;   &quot;hip-hop&quot;   &quot;young&quot;      &quot;york&quot;   &quot;“ok,&quot;     
+## yury-chernavsky.txt &quot;created&quot; &quot;jazz&quot;      &quot;sing&quot;       &quot;yes,&quot;   &quot;such&quot;     
+## yuzo-koshiro.txt    &quot;space&quot;   &quot;create&quot;    &quot;created&quot;    &quot;so,&quot;    &quot;released&quot;</code></pre>
+<p>The differences between tf and tf-idf become much clearer with the cleaned versions.</p>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="exploratory-analysis-in-r.html#cb87-1" aria-hidden="true" tabindex="-1"></a>r_most_freq_idf<span class="ot">&lt;-</span> <span class="fu">findMostFreqTerms</span>(r_dtm_idf, <span class="at">n =</span> n)</span>
+<span id="cb87-2"><a href="exploratory-analysis-in-r.html#cb87-2" aria-hidden="true" tabindex="-1"></a>r_most_freq_idf<span class="ot">&lt;-</span> <span class="fu">do.call</span>(rbind, <span class="fu">lapply</span>(r_most_freq_idf, <span class="cf">function</span>(x) { x <span class="ot">&lt;-</span> <span class="fu">names</span>(x);<span class="fu">length</span>(x)<span class="ot">&lt;-</span>n;x }))</span>
+<span id="cb87-3"><a href="exploratory-analysis-in-r.html#cb87-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(r_most_freq_idf)</span></code></pre></div>
+<pre><code>##                         [,1]      [,2]        [,3]     [,4]       [,5]     
+## a-guy-called-gerald.txt &quot;machine&quot; &quot;basically&quot; &quot;anyway&quot; &quot;state&quot;    &quot;push&quot;   
+## addison-groove.txt      &quot;drum&quot;    &quot;exist&quot;     &quot;london&quot; &quot;machine&quot;  &quot;track&quot;  
+## aisha-devi.txt          &quot;voice&quot;   &quot;space&quot;     &quot;sing&quot;   &quot;pop&quot;      &quot;connect&quot;
+## alec-empire.txt         &quot;video&quot;   &quot;hey&quot;       &quot;weird&quot;  &quot;american&quot; &quot;boy&quot;    
+## alex-barck.txt          &quot;tune&quot;    &quot;jazz&quot;      &quot;hiphop&quot; &quot;remix&quot;    &quot;sample&quot; 
+## alex-rosner.txt         &quot;system&quot;  &quot;room&quot;      &quot;ear&quot;    &quot;level&quot;    &quot;bass&quot;</code></pre>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="exploratory-analysis-in-r.html#cb89-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(r_most_freq_idf)</span></code></pre></div>
+<pre><code>##                     [,1]       [,2]           [,3]      [,4]       [,5]        
+## wu-tang-clan.txt    &quot;shit&quot;     &quot;brother&quot;      &quot;street&quot;  &quot;family&quot;   &quot;respect&quot;   
+## xavier-veilhan.txt  &quot;art&quot;      &quot;relationship&quot; &quot;form&quot;    &quot;choose&quot;   &quot;rather&quot;    
+## yoshimio.txt        &quot;vocal&quot;    &quot;free&quot;         &quot;sing&quot;    &quot;drum&quot;     &quot;instrument&quot;
+## young-guru.txt      &quot;engineer&quot; &quot;hiphop&quot;       &quot;york&quot;    &quot;session&quot;  &quot;genre&quot;     
+## yury-chernavsky.txt &quot;jazz&quot;     &quot;sing&quot;         &quot;boy&quot;     &quot;musician&quot; &quot;country&quot;   
+## yuzo-koshiro.txt    &quot;video&quot;    &quot;program&quot;      &quot;company&quot; &quot;street&quot;   &quot;create&quot;</code></pre>
+<p>We can now see the importance of machines to lectures by A Guy Called Gerald and Addison Groove, two artists who have made drum machines and synthesizers a key part of their practice. Aïsha Devi has “voice”, “space”, and “sing” in her top 5, which are all key aspects of her practice. It becomes clearer that Alex Barck is a DJ with a penchant for jazz, hip-hop, and remixes. The Wu still swears a lot but we can also now see the importance of familial bonds and earning respect to their career. “Form” now appears in Veilhan’s top 5 alongside “art,” a refining of his position as a sculptor in a corpus full of musicians. Yoshimio’s varied career is captured in the prominence of “free” alongside instruments she plays and uses. And Young Guru and Yuri Chernavsky are now more clearly defined: the former as a hip-hop engineer and the latter as a jazz musician.</p>
+<p>Similar results can be seen in the Python version, though again the presence of the custom stopwords removed from R create additional noise.</p>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="exploratory-analysis-in-r.html#cb91-1" aria-hidden="true" tabindex="-1"></a>py_most_freq_idf<span class="ot">&lt;-</span> <span class="fu">findMostFreqTerms</span>(py_dtm_idf, <span class="at">n =</span> n)</span>
+<span id="cb91-2"><a href="exploratory-analysis-in-r.html#cb91-2" aria-hidden="true" tabindex="-1"></a>py_most_freq_idf<span class="ot">&lt;-</span> <span class="fu">do.call</span>(rbind, <span class="fu">lapply</span>(py_most_freq_idf, <span class="cf">function</span>(x) { x <span class="ot">&lt;-</span> <span class="fu">names</span>(x);<span class="fu">length</span>(x)<span class="ot">&lt;-</span>n;x }))</span>
+<span id="cb91-3"><a href="exploratory-analysis-in-r.html#cb91-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(py_most_freq_idf)</span></code></pre></div>
+<pre><code>##                         [,1]      [,2]        [,3]     [,4]         [,5]   
+## a-guy-called-gerald.txt &quot;machine&quot; &quot;basically&quot; &quot;anyway&quot; &quot;state&quot;      &quot;push&quot; 
+## addison-groove.txt      &quot;gonna&quot;   &quot;noise&quot;     &quot;drum&quot;   &quot;london&quot;     &quot;exist&quot;
+## aisha-devi.txt          &quot;voice&quot;   &quot;space&quot;     &quot;sing&quot;   &quot;electronic&quot; &quot;pop&quot;  
+## alec-empire.txt         &quot;noise&quot;   &quot;video&quot;     &quot;felt&quot;   &quot;hey&quot;        &quot;game&quot; 
+## alex-barck.txt          &quot;tune&quot;    &quot;jazz&quot;      &quot;hip&quot;    &quot;sample&quot;     &quot;less&quot; 
+## alex-rosner.txt         &quot;low&quot;     &quot;system&quot;    &quot;room&quot;   &quot;ear&quot;        &quot;red&quot;</code></pre>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="exploratory-analysis-in-r.html#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(py_most_freq_idf)</span></code></pre></div>
+<pre><code>##                     [,1]    [,2]           [,3]      [,4]       [,5]        
+## wu-tang-clan.txt    &quot;shit&quot;  &quot;brother&quot;      &quot;gonna&quot;   &quot;game&quot;     &quot;street&quot;    
+## xavier-veilhan.txt  &quot;art&quot;   &quot;relationship&quot; &quot;form&quot;    &quot;rather&quot;   &quot;musician&quot;  
+## yoshimio.txt        &quot;vocal&quot; &quot;free&quot;         &quot;sing&quot;    &quot;drum&quot;     &quot;instrument&quot;
+## young-guru.txt      &quot;gonna&quot; &quot;hip&quot;          &quot;hop&quot;     &quot;york&quot;     &quot;session&quot;   
+## yury-chernavsky.txt &quot;jazz&quot;  &quot;sing&quot;         &quot;boy&quot;     &quot;musician&quot; &quot;country&quot;   
+## yuzo-koshiro.txt    &quot;game&quot;  &quot;video&quot;        &quot;program&quot; &quot;company&quot;  &quot;street&quot;</code></pre>
+<hr />
+</div>
+<div id="collocations" class="section level2" number="5.3">
+<h2><span class="header-section-number">5.3</span> Collocations</h2>
+<p>Collocations are another type of semantic linking between words that is easier to explore in R, allowing me to look a little beyond co-occurences. To do this I used the textstat sub-package within quanteda, first setting up new corpus objects using quanteda.</p>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="exploratory-analysis-in-r.html#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(quanteda)</span>
+<span id="cb95-2"><a href="exploratory-analysis-in-r.html#cb95-2" aria-hidden="true" tabindex="-1"></a>raw_corpus_q<span class="ot">&lt;-</span> <span class="fu">corpus</span>(raw_corpus); r_corpus_q<span class="ot">&lt;-</span> <span class="fu">corpus</span>(r_corpus); py_corpus_q<span class="ot">&lt;-</span> <span class="fu">corpus</span>(py_corpus)</span>
+<span id="cb95-3"><a href="exploratory-analysis-in-r.html#cb95-3" aria-hidden="true" tabindex="-1"></a><span class="fu">docnames</span>(raw_corpus_q)<span class="ot">&lt;-</span> <span class="fu">docvars</span>(raw_corpus_q, <span class="st">&quot;id&quot;</span>); <span class="fu">docnames</span>(r_corpus_q)<span class="ot">&lt;-</span> <span class="fu">docvars</span>(r_corpus_q, <span class="st">&quot;id&quot;</span>); <span class="fu">docnames</span>(py_corpus_q)<span class="ot">&lt;-</span> <span class="fu">docvars</span>(py_corpus_q, <span class="st">&quot;id&quot;</span>)</span></code></pre></div>
+<p>I first looked for bigrams, combinations of two words, in the cleaned versions as the raw version doesn’t tell us anything meaningful.</p>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="exploratory-analysis-in-r.html#cb96-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(quanteda.textstats)</span>
+<span id="cb96-2"><a href="exploratory-analysis-in-r.html#cb96-2" aria-hidden="true" tabindex="-1"></a>r_col<span class="ot">&lt;-</span> <span class="fu">textstat_collocations</span>(r_corpus_q, <span class="at">size =</span> <span class="dv">2</span>, <span class="at">min_count =</span> <span class="dv">500</span>)</span>
+<span id="cb96-3"><a href="exploratory-analysis-in-r.html#cb96-3" aria-hidden="true" tabindex="-1"></a>r_col<span class="ot">&lt;-</span> r_col[<span class="fu">order</span>(r_col<span class="sc">$</span>count, <span class="at">decreasing =</span> <span class="cn">TRUE</span>)]</span>
+<span id="cb96-4"><a href="exploratory-analysis-in-r.html#cb96-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(r_col)</span></code></pre></div>
+<pre><code>##    collocation count count_nested length    lambda         z
+## 1  little bite  2836            0      2  5.720247 197.90391
+## 22    new york  2209            0      2 10.698286  48.11261
+## 14  make music  1930            0      2  2.010951  81.40333
+## 2    right now  1477            0      2  3.726804 122.93437
+## 10   come back  1213            0      2  2.885605  90.75946
+## 11     go back  1211            0      2  2.796779  88.12621</code></pre>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="exploratory-analysis-in-r.html#cb98-1" aria-hidden="true" tabindex="-1"></a>py_col<span class="ot">&lt;-</span> <span class="fu">textstat_collocations</span>(py_corpus_q, <span class="at">size =</span> <span class="dv">2</span>, <span class="at">min_count =</span> <span class="dv">500</span>)</span>
+<span id="cb98-2"><a href="exploratory-analysis-in-r.html#cb98-2" aria-hidden="true" tabindex="-1"></a>py_col<span class="ot">&lt;-</span> py_col[<span class="fu">order</span>(py_col<span class="sc">$</span>count, <span class="at">decreasing =</span> <span class="cn">TRUE</span>)]</span>
+<span id="cb98-3"><a href="exploratory-analysis-in-r.html#cb98-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(py_col)</span></code></pre></div>
+<pre><code>##    collocation count count_nested length    lambda         z
+## 1   little bit  2859            0      2  5.995948 204.99702
+## 6      hip hop  2639            0      2 12.413934 107.46136
+## 32    new york  2202            0      2 10.340784  59.19616
+## 16  make music  1891            0      2  2.099993  84.36750
+## 11   feel like  1704            0      2  2.852775  99.14666
+## 10  lot people  1701            0      2  2.694276 100.58606</code></pre>
+<p>Just as “London” had popped up in the top 10 terms of the tf-idf versions, here we see “New York” as another potentially important location. Both of these results lead me to think that it would be interesting to use Named Entities and network analysis on locations to see what patterns might emerge.</p>
+<p>“Hip hop” shows up again (but not in the R version as the removal of the punctation turned it into one word as we can see in the tf-idf version of the DTM), as do “electronic music” and “dance music” further hinting that these are key genres/sub-themes within the overall music theme. We also see similarities with the co-occurences we analyzed above and which are more emblematic of the corpus’ overall theme: “make music/record,” “play music,” “drum machine,” “record label.”</p>
+<p>Next I looked for trigrams, three word combinations, lowering the count threshold to 50.</p>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="exploratory-analysis-in-r.html#cb100-1" aria-hidden="true" tabindex="-1"></a>r_col_3<span class="ot">&lt;-</span> <span class="fu">textstat_collocations</span>(r_corpus_q, <span class="at">size =</span> <span class="dv">3</span>, <span class="at">min_count =</span> <span class="dv">50</span>)</span>
+<span id="cb100-2"><a href="exploratory-analysis-in-r.html#cb100-2" aria-hidden="true" tabindex="-1"></a>r_col_3<span class="ot">&lt;-</span> r_col_3[<span class="fu">order</span>(r_col_3<span class="sc">$</span>count, <span class="at">decreasing =</span> <span class="cn">TRUE</span>)]</span>
+<span id="cb100-3"><a href="exploratory-analysis-in-r.html#cb100-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(r_col_3)</span></code></pre></div>
+<pre><code>##         collocation count count_nested length    lambda         z
+## 7  talk little bite   231            0      3  2.297298  7.483910
+## 36    new york city   171            0      3 -1.460931 -1.648082
+## 2    mike will make   149            0      3  5.936830  9.633049
+## 40   blah blah blah   149            0      3 -8.341383 -8.679746
+## 4  start make music   134            0      3  1.071956  8.417978
+## 11   us little bite   127            0      3  1.688849  4.819971</code></pre>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="exploratory-analysis-in-r.html#cb102-1" aria-hidden="true" tabindex="-1"></a>py_col_3<span class="ot">&lt;-</span> <span class="fu">textstat_collocations</span>(py_corpus_q, <span class="at">size =</span> <span class="dv">3</span>, <span class="at">min_count =</span> <span class="dv">50</span>)</span>
+<span id="cb102-2"><a href="exploratory-analysis-in-r.html#cb102-2" aria-hidden="true" tabindex="-1"></a>py_col_3<span class="ot">&lt;-</span> py_col_3[<span class="fu">order</span>(py_col_3<span class="sc">$</span>count, <span class="at">decreasing =</span> <span class="cn">TRUE</span>)]</span>
+<span id="cb102-3"><a href="exploratory-analysis-in-r.html#cb102-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(py_col_3)</span></code></pre></div>
+<pre><code>##           collocation count count_nested length    lambda          z
+## 7     talk little bit   244            0      3  2.546546   7.600976
+## 62      new york city   169            0      3 -1.079777  -1.234271
+## 75     blah blah blah   157            0      3 -8.400974 -11.166553
+## 47        go new york   146            0      3  1.853031   1.292401
+## 35     red bull music   141            0      3  4.766094   2.891240
+## 22 bull music academy   138            0      3  8.144420   5.267650</code></pre>
+<p>Overall trigrams are most revealing of the way interviews in this corpus are conducted: “talk (a) little bit” (which became bite in the lemmatizing process), “tell us (a) little,” “play (a) little bit” are all recurring prompts from hosts while “blah blah blah” and “yeah yeah yeah” are often used by both lecturers and hosts to simplify stories.</p>
+<p>One last thing to note is the appearance of various artist names such (A) Guy Called Gerald, (A) Tribe Called Quest, Herb Power Jr, Mario Caldato Jr, De La Soul, and Mike Will Made-It (shown as Mike Will Make) whose tri- and quadgram names are ideal targets for the collocations.</p>
+
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-R-quanteda" class="csl-entry">
+Benoit, Kenneth, Kohei Watanabe, Haiyan Wang, Paul Nulty, Adam Obeng, Stefan Müller, Akitaka Matsuo, and William Lowe. 2021. <em>Quanteda: Quantitative Analysis of Textual Data</em>. <a href="https://quanteda.io">https://quanteda.io</a>.
+</div>
+<div id="ref-R-qdap" class="csl-entry">
+———. 2020. <em>Qdap: Bridging the Gap Between Qualitative Data and Quantitative Analysis</em>. <a href="http://trinker.github.io/qdap/">http://trinker.github.io/qdap/</a>.
+</div>
+<div id="ref-R-dplyr" class="csl-entry">
+Wickham, Hadley, Romain François, Lionel Henry, and Kirill Müller. 2021. <em>Dplyr: A Grammar of Data Manipulation</em>. <a href="https://CRAN.R-project.org/package=dplyr">https://CRAN.R-project.org/package=dplyr</a>.
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="13">
+<li id="fn13"><p>Code for the plot function is adapted from the following thread: <a href="https://stackoverflow.com/questions/36326056/r-visualize-correlated-words-against-one-or-more-words" class="uri">https://stackoverflow.com/questions/36326056/r-visualize-correlated-words-against-one-or-more-words</a>)<a href="exploratory-analysis-in-r.html#fnref13" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="exploratory-analysis-in-python.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="topic-modeling.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/laurentfintoni/rbma-text-analysis-mining04-exploratory_analysis_R.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
