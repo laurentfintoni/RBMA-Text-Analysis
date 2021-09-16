@@ -24,7 +24,7 @@
 <meta name="author" content="Laurent Fintoni" />
 
 
-<meta name="date" content="2021-09-15" />
+<meta name="date" content="2021-09-16" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -347,7 +347,7 @@ div.csl-indent {
 <span id="cb113-8"><a href="topic-modeling.html#cb113-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;LDA topic similarity by features&quot;</span>,</span>
 <span id="cb113-9"><a href="topic-modeling.html#cb113-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;&quot;</span>,</span>
 <span id="cb113-10"><a href="topic-modeling.html#cb113-10" aria-hidden="true" tabindex="-1"></a>     <span class="at">sub =</span> <span class="st">&quot;&quot;</span>)</span></code></pre></div>
-<p><img src="blob/_main_files/figure-html/LDA%20Similarity-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/LDA%20Similarity-1.png" width="672" /></p>
 <p>In the R version, we can see that topics 3 (electronic music) and 5 (DJ culture) and 13 (business) appear most distant from the rest and that there are two major clusters: in the case of topics 1, 9, 11, 2, and 15 it seems logical to assume that this is due to how they relate to hip-hop and club cultures, while the second cluster is more diverse though within that topics 7, 10, 12, and 14 seem to be closely related via more abstract themes such as art, technology, and experimentation.</p>
 <p>In the Python version, we again see the electronic music topic (1) as most distant alongside two of the hip-hop topics (2, 3), though this distance is less pronounced, and the two major clusters appear to have similar internal relations, with DJing, hip-hop, writing, and production on the left and mastering, electronic music, clubs, and machines on the right.</p>
 <div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="topic-modeling.html#cb114-1" aria-hidden="true" tabindex="-1"></a>lda.similarity <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(lda.model_py<span class="sc">@</span>beta) <span class="sc">%&gt;%</span></span>
