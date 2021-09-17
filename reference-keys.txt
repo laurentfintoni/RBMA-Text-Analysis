@@ -1,3 +1,9 @@
+fig:unnamed-chunk-20-1
+fig:unnamed-chunk-20-2
+fig:unnamed-chunk-21-1
+fig:unnamed-chunk-21-2
+fig:unnamed-chunk-22
+fig:unnamed-chunk-23
 introduction
 pre-processing-steps
 corpus-cleaning-in-r
